@@ -1,42 +1,53 @@
 import pygame
+from player import Player
 
-# Define some colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
-# Define the screen size
-WIDTH = 1280
-HEIGHT = 720
-# Initialize Pygame
-pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+def main():
+  
+  pygame.init()
 
-# Function to draw the game board with walls
-def draw_board():
-    # Fill the screen with black
-    screen.fill(BLACK)
+  
+  screen_width = 800
+  screen_height = 600
+  map_size_x = 800
+  map_size_y = 1000
+  screen = pygame.display.set_mode((screen_width, screen_height))
 
-    # Draw the top and bottom walls
-    pygame.draw.rect(screen, WHITE, (0, 0, WIDTH, 5))
-    pygame.draw.rect(screen, WHITE, (0, HEIGHT - 5, WIDTH, 5))
+  
+  pygame.display.set_caption("Player Movement")
 
-    # Draw the left and right walls
-    pygame.draw.rect(screen, WHITE, (0, 0, 5, HEIGHT))
-    pygame.draw.rect(screen, WHITE, (WIDTH - 5, 0, 5, HEIGHT))
+  # assets wie Sprite PNG's müsste man in einen extra Ordner machen
+  player_image_path = "player.png"  # Replace with your image path
 
-# Game loop
-running = True
-while running:
+
+  player = Player(10, 10, player_image_path)
+
+
+  running = True
+  while running:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+      if event.type == pygame.QUIT:
+        running = False
 
-    # Draw the game board
-    draw_board()
 
-    # Update the display
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player.moveLeft(5, map_size_x)
+    if keys[pygame.K_RIGHT]:
+        player.moveRight(5, map_size_x)
+    if keys[pygame.K_DOWN]:
+        player.moveDown(5, map_size_y)
+    if keys[pygame.K_UP]:
+        player.moveUp(5, map_size_y)
+
+  
+    screen.fill((255, 255, 255))  
+
+    player.draw(screen)
+
     pygame.display.flip()
 
-# Quit Pygame
 pygame.quit()
+
+if __name__ == "__main__":
+  main()
