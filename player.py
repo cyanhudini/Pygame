@@ -6,7 +6,8 @@ SURFACE:COLOR = ( 0, 0, 0)
 WIDTH = 100
 HEIGHT = 100
 
-  #OBJECT CLASS
+
+#OBJECT CLASS
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, image_path):
         self.x = x
