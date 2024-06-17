@@ -39,8 +39,11 @@ class Player(pygame.sprite.Sprite):
             self.y = map_size_y - self.image.get_height()
         
         
-    def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
+    def draw(self, screen, camera):
+        screen_x = self.x - camera.x
+        screen_y = self.y - camera.y
+        screen.blit(self.image, (screen_x, screen_y))
+        
 
   # all_sprites_list = pygame.sprite.Group()
 

@@ -1,8 +1,13 @@
+import pygame
+
 class GreenDot():
-    def __init__(self, width, height):
-        self.x = 0
-        self.y = 0
-        self.width = width
-        self.height = height
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
         
-    def draw(self, screen,):
+        
+    def draw(self, screen):
+      
+        pygame.draw.circle(screen, (0, 255, 0), (self.x, self.y ), self.radius)
+        
