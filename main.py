@@ -6,14 +6,14 @@ from camera import Camera
 
 def draw_test_dots(screen, map_size_x, map_size_y):
     
-    radius = 500
-    num_dots = 1000
+    radius = 5
+    num_dots = 100
     draw_dots = []
     for _ in range(num_dots):
         coord_x = random.randint(0, map_size_x -1)
         coord_y = random.randint(0, map_size_y -1)
-        dot = GreenDot(coord_x, coord_y, radius).draw(screen)
         draw_dots.append(GreenDot(coord_x, coord_y, radius))
+    return draw_dots
     
 
 def main():
@@ -38,6 +38,7 @@ def main():
     canvas = pygame.Surface((map_size_x, map_size_y))
     canvas.fill((0, 0, 255))
     rect = canvas.get_rect()
+    test_green_dots = draw_test_dots(screen, map_size_x, map_size_y)
     
     running = True
     while running:
@@ -59,7 +60,8 @@ def main():
         canvas.fill((0, 0, 255))
         screen.fill((255, 255, 255))
         screen.blit(canvas, (screen_width, screen_height))
-        
+        for dot in test_green_dots:
+            dot.draw(screen)
 
         player.draw(screen, player_camera)
 
