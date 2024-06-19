@@ -7,7 +7,7 @@ from camera import Camera
 def draw_test_dots(screen, map_size_x, map_size_y):
     
     radius = 5
-    num_dots = 100
+    num_dots = 1000
     draw_dots = []
     for _ in range(num_dots):
         coord_x = random.randint(0, map_size_x -1)
@@ -21,8 +21,8 @@ def main():
 
     screen_width = 800
     screen_height = 600
-    map_size_x = 1000
-    map_size_y = 1000
+    map_size_x = 10000
+    map_size_y = 10000
     screen = pygame.display.set_mode((screen_width, screen_height))
 
 
