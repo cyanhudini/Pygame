@@ -23,11 +23,11 @@ class Sprite(pygame.sprite.Sprite):
     def moveRight (self, pixels):
         self.rect.x += pixels
     def moveLeft (self, pixels):
-        self.rect.x += pixels
+        self.rect.x -= pixels
     def moveForward(self, pixels):
-        self.rect.y -= speed * speed/10
+        self.rect.y -= pixels
     def moveBack(self, speed):
-        self.rect.y -= speed * speed/10
+        self.rect.y += pixels
 
 
   all_sprites_list = pygame.sprite.Group()
