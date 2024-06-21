@@ -1,48 +1,49 @@
 import pygame
-
-# Global variables
-COLOR = (167, 255, 100)
-SURFACE:COLOR = ( 0, 0, 0)
-WIDTH = 100
-HEIGHT = 100
-
-
-#OBJECT CLASS
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, image_path):
-        self.x = x
-        self.y = y
+    def __init__(self, image_path, camera):
+        super().__init__(camera)
+        self.direction = pygame.math.Vector2()
         self.image = pygame.image.load(image_path)
+        self.rect = self.image.get_rect()
 
+    def getInput(self):
+        if keys[pygame.K_LEFT]:
+            self.direction.x = -1
+        if keys[pygame.K_RIGHT]:
+            self.direction.x = 1
+        if keys[pygame.K_DOWN]:
+            self.direction.y = 1
+        if keys[pygame.K_UP]:
+            self.direction.y = -1
+    
+    
     # TODO: check ob Ende der Karte erreicht
     def moveRight(self, pixels, map_size_x):
         # wenn png sprite über die Kartengrenze hinausgeht, dann setze es auf die Grenze
-        self.x += pixels
+        self.direction.x = 1
         if self.x + self.image.get_width() > map_size_x:
             self.x = map_size_x - self.image.get_width()
-        
+         
     def moveLeft(self, pixels, map_size_x):
         
-        self.x -= pixels
+        self.direction.x = -1
         if self.x < 0:
             self.x = 0
             
     def moveUp(self, pixels, map_size_y):
         
-        self.y -= pixels
+        self.direction.y = -1
         if self.y < 0:
             self.y = 0
         
     def moveDown(self, pixels, map_size_y):
-        self.y += pixels
+        self.direction.y = 1
         if self.y + self.image.get_height() > map_size_y:
             self.y = map_size_y - self.image.get_height()
         
-        
-    def draw(self, screen, camera):
-        screen_x = self.x - camera.x
-        screen_y = self.y - camera.y
-        screen.blit(self.image, (screen_x, screen_y))
+    def update_player(self):
+        self.getInput()
+        self.rect.center += self.direction * 2
         
 
   # all_sprites_list = pygame.sprite.Group()
