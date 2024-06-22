@@ -22,6 +22,14 @@ class Survivor:
 
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
     self.player_image_path = "r.png"  # Replace with your image path
+    player_image_path = "Pygame/player/walking/down.png"  # Replace with your image path
+    
+    #Liste von Bildpfaden
+    self.image_paths = ['Pygame/enemy/skellet/skull_down.png',
+                  'Pygame/enemy/franky/franky_down.png',
+                  'Pygame/enemy/kürbis/kurbis_down.png'
+                  'Pygame/enemy/mino/mino_down.png'
+                  'Pygame/enemy/skellet/skull_down.png']
 
     #player_camera = Camera(screen_width, screen_height)
     
