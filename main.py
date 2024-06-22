@@ -3,6 +3,7 @@ import random
 from player import Player
 from greendots import GreenDot
 from camera import Camera
+from pytmx.util_pygame import load_pygame
 
 def draw_test_dots(screen, map_size_x, map_size_y):
     
@@ -29,7 +30,14 @@ def main():
     pygame.display.set_caption("Player Movement")
 
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
-    player_image_path = "player.png"  # Replace with your image path
+    player_image_path = "Pygame/player/walking/down.png"  # Replace with your image path
+    
+    #Liste von Bildpfaden
+    image_paths = ['Pygame/enemy/skellet/skull_down.png',
+                  'Pygame/enemy/franky/franky_down.png',
+                  'Pygame/enemy/kürbis/kurbis_down.png'
+                  'Pygame/enemy/mino/mino_down.png'
+                  'Pygame/enemy/skellet/skull_down.png']
 
     player_camera = Camera(screen_width, screen_height)
     player = Player(10, 10, player_image_path)
