@@ -1,6 +1,6 @@
 
 
-class Weapon (pygame.sprite.Sprite)
+class Weapon (pygame.sprite.Sprite):
     def __init__(self, player, groups ):
         self.player = player
         self.distance = 140
