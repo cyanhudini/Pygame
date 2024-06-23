@@ -11,16 +11,10 @@ class Player(pygame.sprite.Sprite):
         self.speed = 200
 
     def getInput(self):
+        
         keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_LEFT]:
-            self.direction.x = -1
-        if keys[pygame.K_RIGHT]:
-            self.direction.x = 1
-        if keys[pygame.K_DOWN]:
-            self.direction.y = 1
-        if keys[pygame.K_UP]:
-            self.direction.y = -1
+        self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
+        self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
     
         
     def update(self, time):

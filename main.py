@@ -54,15 +54,7 @@ class Survivor:
                     sys.exit()
 
             #player_camera.update(player, map_size_x, map_size_y)
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
-                player.direction.x = -1
-            if keys[pygame.K_RIGHT]:
-                player.direction.x = 1
-            if keys[pygame.K_DOWN]:
-                player.direction.y = 1
-            if keys[pygame.K_UP]:
-                player.direction.y = -1
+            
             self.player.direction = self.player.direction.normalize() if self.player.direction else self.player.direction
             self.dt = self.clock.tick(60) / 1000
             self.screen.fill((255, 255, 255))
