@@ -1,10 +1,10 @@
 import pygame
 class Player(pygame.sprite.Sprite):
-    def __init__(self, image_path, camera, pos):
+    def __init__(self, image_path, groups, pos):
         # mit superklasse übernimmt Player auch die Methode von Sprite
         # wie z.B. update()
         
-        super().__init__(camera)
+        super().__init__(groups)
         self.direction = pygame.math.Vector2()
         self.image = pygame.image.load(image_path)
         self.rect = self.image.get_rect(center=pos)
@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_UP]:
             self.direction.y = -1
     
-
+        
     def update(self, time):
         self.getInput()
         self.rect.center += self.direction * self.speed * time
