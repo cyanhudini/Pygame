@@ -652,7 +652,7 @@
    <wangset name="Unbenannter Satz" type="mixed" tile="-1"/>
   </wangsets>
  </tileset>
- <layer id="1" name="Kachelebene 1" width="40" height="30" offsetx="76.0178" offsety="17.4351">
+ <layer id="1" name="Kachelebene" width="40" height="30" >
   <data encoding="csv">
 65,65,65,65,195,195,195,195,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 65,65,65,65,195,195,195,195,195,195,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,65,101,101,101,101,101,101,101,101,101,101,0,0,
