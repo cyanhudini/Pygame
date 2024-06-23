@@ -12,6 +12,7 @@ class EnemyManager:
         self.spawn_time = spawn_time
         self.all_sprites_list = all_sprites_list
         self.image_paths = image_paths
+        #Timer für das Erscheinen von Gegnern
         pygame.time.set_timer(pygame.USEREVENT, self.spawn_time)
 
     def spawn_enemy(self):
