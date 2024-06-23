@@ -4,6 +4,7 @@ import sys
 from player import Player
 from greendots import GreenDot
 from sprite_group import SpriteGroup
+from pytmx.util_pygame import load_pygame
 
 class Survivor:
     def __init__(self):
@@ -28,7 +29,10 @@ class Survivor:
     self.all_sprites = SpriteGroup()
   
     self.player = Player(player_image_path, all_sprites, (400, 360))
-        
+    
+    def setup_map():
+        map_path = load_pygame( )
+    
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -51,7 +55,7 @@ class Survivor:
             self.screen.fill((255, 255, 255))
             # player.draw(screen, player_camera)
             
-            self,.all_sprites.update(dt)
+            self.all_sprites.update(dt)
             all_sprites.draw(player.rect.center) 
             
             pygame.display.update()
