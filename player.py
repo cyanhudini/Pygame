@@ -22,25 +22,3 @@ class Player(pygame.sprite.Sprite):
         self.rect.center += self.direction * self.speed * time
         #print("update_player")  
         
-
-all_sprites_list = pygame.sprite.Group()
-
-object_ = Sprite(Red, 20, 30)
-object_.rect.x = 200
-object_.rect.y = 300
-
-all_sprites_list.add(object_)
-
- 
-  #if keys get pressed do the following
-keys = pygame.key.get_pressed()
-if keys[pygame.K_LEFT]:
-         playerChar.moveLeft(10)
-if keys[pygame.K_RIGHT]:
-         playerChar.moveRight(10)
-if keys[pygame.K_DOWN]:
-         playerChar.moveBack(10)
-if keys[pygame.K_UP]:
-         playerChar.moveForward(10)
-         all_sprites_list.update()
-
