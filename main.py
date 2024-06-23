@@ -16,6 +16,9 @@ def draw_test_dots(screen, map_size_x, map_size_y):
         draw_dots.append(GreenDot(coord_x, coord_y, radius))
     return draw_dots
     
+def setup():
+    map = load_pygame('Pygame/maps/pygame map1.2.tmx')
+    print(map) 
 
 def main():
     pygame.init()
@@ -30,13 +33,13 @@ def main():
     pygame.display.set_caption("Player Movement")
 
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
-    player_image_path = "Pygame/player/walking/down.png"  # Replace with your image path
+    player_image_path = ('Pygame/player/walking/down.png')  # Replace with your image path
     
     #Liste von Bildpfaden
     image_paths = ['Pygame/enemy/skellet/skull_down.png',
                   'Pygame/enemy/franky/franky_down.png',
-                  'Pygame/enemy/kürbis/kurbis_down.png'
-                  'Pygame/enemy/mino/mino_down.png'
+                  'Pygame/enemy/kürbis/kurbis_down.png',
+                  'Pygame/enemy/mino/mino_down.png',
                   'Pygame/enemy/skellet/skull_down.png']
 
     player_camera = Camera(screen_width, screen_height)

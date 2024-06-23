@@ -11,7 +11,7 @@ class Sprite(pygame.sprite.Sprite):
         super().__init__()
 
         self.image =pygame.Surface([width, height])
-        self.image = pygame.image.load('Pygame/player/walking/down.png')
+        self.image = pygame.image.load('Pygame\player\walking\down.png')
         self.image.set_colorkey((0,0,0))
 
         pygame.draw.rect(self.image,
@@ -31,7 +31,7 @@ class Sprite(pygame.sprite.Sprite):
 #Sprite Gruppe erstellen
 all_sprites_list = pygame.sprite.Group()
 
-object_ = Sprite('Pygame/player/walking/down.png', 20, 30)
+object_ = Sprite('Pygame\player\walking\down.png', 20, 30)
 object_.rect.x = 200
 object_.rect.y = 300
 
