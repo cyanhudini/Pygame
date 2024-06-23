@@ -30,6 +30,7 @@ class Survivor:
         self.clock = pygame.time.Clock()
         self.all_sprites = pygame.sprite.Group()
         self.setup_map()
+        # bug: player wird praktisch unter die Karte gezeichnet
         self.player = Player(self.player_image_path, self.all_sprites, (400, 360))
         
         
