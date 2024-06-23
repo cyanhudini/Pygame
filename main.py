@@ -44,7 +44,7 @@ class Survivor:
         map_path = load_pygame("/".join(("maps", "map1.tmx")))
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
             #SpriteGroup((x * 64, y * 64), image, self.all_sprites)
-            
+            print("x: ", x, "y: ", y, "image: ", image)
             
     def run(self):
         while True:

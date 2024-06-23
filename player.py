@@ -26,7 +26,7 @@ class Player(pygame.sprite.Sprite):
     def update(self, time):
         self.getInput()
         self.rect.center += self.direction * self.speed * time
-        print("update_player")  
+        #print("update_player")  
         
 
   # all_sprites_list = pygame.sprite.Group()
