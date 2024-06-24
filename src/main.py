@@ -4,6 +4,7 @@ import sys
 from player import Player
 from groups import SpriteGroups
 from sprite import Sprite
+from bullet import Bullet
 from pytmx.util_pygame import load_pygame
 from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
 class Survivor:
@@ -32,7 +33,11 @@ class Survivor:
         self.setup_map()
         # "bug"wenn Player vor Map initialisiert wird
         self.player = Player(self.player_image_path, self.all_sprites, (400, 360))
-    
+    def shoot_bullet(self):
+        position = self.player.rect.center
+        direction = self.player.direction
+        Bullet( position, direction, self.all_sprites)
+        
         
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
