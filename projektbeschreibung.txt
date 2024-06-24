@@ -1,2 +1,0 @@
-Wir verwenden PyGame um ein Endlosspiel zu programmieren, wobei Mobs (gegner) über mehr Zeit stärker werden, sowie diverser. Über die Zeit sollen diese herausfordernder werden indem sie
-bestimmte "Moves" erhalten, also Fähigkeiten wie z.B. ein Angriff, linear über eine lange strecke. Auf dem Spielfeld des Spiels könnte man Upgrades aufsammeln
