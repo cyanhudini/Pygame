@@ -7,8 +7,8 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.direction = pygame.math.Vector2()
         self.image = pygame.image.load(image_path).convert_alpha()
-        self.rect = self.image.get_rect(topleft=pos)
-        self.speed = 200
+        self.rect = self.image.get_rect(center=pos)
+        self.speed = 500
 
     def getInput(self):
         
@@ -20,5 +20,8 @@ class Player(pygame.sprite.Sprite):
     def update(self, time):
         self.getInput()
         self.rect.center += self.direction * self.speed * time
-  
+    
+    def calculate_shooting_direction():
+        # schieße entweder in die Richtung des nächsten Gegners oder in die Laufrichtung
         
+        pass

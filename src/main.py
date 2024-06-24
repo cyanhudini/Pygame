@@ -2,10 +2,10 @@ import pygame
 import random
 import sys
 from player import Player
-from greendots import GreenDot
-from sprite_group import Sprite
+from groups import SpriteGroups
+from sprite import Sprite
 from pytmx.util_pygame import load_pygame
-from variable import SCREEN_HEIGHT, SCREEN_WIDTH
+from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
 class Survivor:
     def __init__(self):
 
@@ -28,16 +28,17 @@ class Survivor:
     #player_camera = Camera(screen_width, screen_height)
     
         self.clock = pygame.time.Clock()
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites = SpriteGroups()
         self.setup_map()
-        # bug: player wird praktisch unter die Karte gezeichnet
+        # "bug"wenn Player vor Map initialisiert wird
         self.player = Player(self.player_image_path, self.all_sprites, (400, 360))
-        
+    
         
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
         map_path = load_pygame("/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/pygame_map_nils.tmx")
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
+            # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
             print("x: ", x, "y: ", y, "image: ", image)
             
@@ -51,11 +52,12 @@ class Survivor:
             #player_camera.update(player, map_size_x, map_size_y)
             
             self.dt = self.clock.tick() / 1000
-            self.screen.fill('black')
+            
             # player.draw(screen, player_camera)
             
             self.all_sprites.update(self.dt)
-            self.all_sprites.draw(self.screen) 
+            #self.screen.fill('black')
+            self.all_sprites.draw(self.player.rect.center) 
             
             pygame.display.update()
         
