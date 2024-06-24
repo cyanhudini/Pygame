@@ -1,6 +1,7 @@
 import pygame
 import random
 import sys
+import math
 from player import Player
 from groups import SpriteGroups
 from sprite import Sprite
@@ -83,6 +84,14 @@ class Survivor:
                 print("Bullet collided with enemy")
                 bullet.kill()
     
+    def check_closest_enemy(self):
+        threshold_distance = 500
+        for enemy in self.enemy_sprites:
+            distance = math.sqrt((self.player.rect.centerx - enemy.rect.centerx) ** 2 + (self.player.rect.centery - enemy.rect.centery) ** 2)
+            if distance < threshold_distance:
+                self.bullet_direction = pygame.Vector2(enemy.rect.center) - pygame.Vector2(self.player.rect.center)
+                break
+    
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -95,6 +104,7 @@ class Survivor:
             self.dt = self.clock.tick() / 1000
             
             # player.draw(screen, player_camera)
+            self.check_closest_enemy()
             self.check_player_collision_with_enemy()
             self.check_bullet_collision_with_enemy()
             self.shoot_bullet()
