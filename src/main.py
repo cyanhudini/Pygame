@@ -5,6 +5,7 @@ from player import Player
 from groups import SpriteGroups
 from sprite import Sprite
 from bullet import Bullet
+from enemy import Enemy
 from pytmx.util_pygame import load_pygame
 from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
 class Survivor:
@@ -21,6 +22,10 @@ class Survivor:
 
         pygame.display.set_caption("Player Movement")
         self.player_path = "/".join(["player", "walking", "down.png"])
+        self.bullet_sprite_image ="/".join(["player","projektil", "pr_small_rot.png"])
+        # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
+        self.enemy_sprite_image = "/".join(["enemy","mino", "mino_down.png"])
+        
         self.common_paths = [
             "/player/walking/down.png",
             "/maps/pygame_map_nils.tmx",
@@ -28,7 +33,7 @@ class Survivor:
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
         #self.player_image_path = "r.png"  # 
         #self.player_image_path = self.  # R
-        
+        self.enemy_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         
         #Liste von Bildpfaden
@@ -37,20 +42,19 @@ class Survivor:
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
         self.setup_map()
-        # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
-    
+        
         self.player = Player(self.player_path, self.all_sprites, (400, 360))
     def shoot_bullet(self):
         position = self.player.rect.center
-        direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
-        self.bullet_direction = direction
+        #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
+        #self.bullet_direction = direction
         #print("position: ", position, "direction: ", self.bullet_direction)
         direction = self.player.direction * 250
         if direction.x == 0 and direction.y == 0:
             direction = self.bullet_direction.normalize() * 250
             self.bullet_direction = direction
         # print("position: ", position, "direction: ", direction)
-        Bullet( position, direction, (self.all_sprites, self.bullet_sprites))
+        Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
         
         
     def setup_map(self):
@@ -62,6 +66,11 @@ class Survivor:
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
+        # spawn enemies in random locations
+        for i in range(1000):
+            x = random.randint(0, self.map_size_x)
+            y = random.randint(0, self.map_size_y)
+            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image)
             
     def run(self):
         while True:
