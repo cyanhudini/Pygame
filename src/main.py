@@ -5,17 +5,17 @@ from player import Player
 from greendots import GreenDot
 from sprite_group import Sprite
 from pytmx.util_pygame import load_pygame
-
+from variable import SCREEN_HEIGHT, SCREEN_WIDTH
 class Survivor:
     def __init__(self):
 
         pygame.init()
 
-        self.screen_width = 1000
-        self.screen_height = 1000
+        #self.screen_width = 1000
+        #self.screen_height = 1000
         self.map_size_x = 10000
         self.map_size_y = 10000
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        self.screen = pygame.display.set_mode((SCREEN_HEIGHT,SCREEN_WIDTH))
     # camera = Camera(800, 600)
 
         pygame.display.set_caption("Player Movement")
