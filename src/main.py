@@ -66,12 +66,23 @@ class Survivor:
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
-        # spawn enemies in random locations
+        # spawn enemies in random locations zum testen
         for i in range(1000):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
             Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image)
-            
+    def check_player_collision_with_enemy(self):
+        # check if player collides with enemy
+        if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
+            print("Player collided with enemy")
+            # pygame.quit()
+            # sys.exit()
+    def check_bullet_collision_with_enemy(self):
+        for bullet in self.bullet_sprites:
+            if pygame.sprite.spritecollide(bullet, self.enemy_sprites, False):
+                print("Bullet collided with enemy")
+                bullet.kill()
+    
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -84,6 +95,8 @@ class Survivor:
             self.dt = self.clock.tick() / 1000
             
             # player.draw(screen, player_camera)
+            self.check_player_collision_with_enemy()
+            self.check_bullet_collision_with_enemy()
             self.shoot_bullet()
             self.all_sprites.update(self.dt)
             #self.screen.fill('black')

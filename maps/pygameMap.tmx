@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="9">
- <tileset firstgid="1" source="background.tsx"/>
- <tileset firstgid="769" name="objects" tilewidth="1056" tileheight="704" tilecount="215" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
-  <tile id="0">
+ 
    <image width="32" height="32" source="/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/Objects_separately/Bones_shadow1_1.png"/>
   </tile>
   <tile id="1">
