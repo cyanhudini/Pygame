@@ -20,28 +20,37 @@ class Survivor:
     # camera = Camera(800, 600)
 
         pygame.display.set_caption("Player Movement")
-
+        self.player_path = "/".join(["player", "walking", "down.png"])
+        self.common_paths = [
+            "/player/walking/down.png",
+            "/maps/pygame_map_nils.tmx",
+        ]
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
-        #self.player_image_path = "r.png"  # Replace with your image path
-        self.player_image_path = "/home/nils/Uni/ObjektOrientSprachen/Pygame/player/walking/down.png"  # Replace with your image path
+        #self.player_image_path = "r.png"  # 
+        #self.player_image_path = self.  # R
+        
+        self.bullet_sprites = pygame.sprite.Group()
         
         #Liste von Bildpfaden
-    #player_camera = Camera(screen_width, screen_height)
+        #player_camera = Camera(screen_width, screen_height)
     
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
         self.setup_map()
         # "bug"wenn Player vor Map initialisiert wird
-        self.player = Player(self.player_image_path, self.all_sprites, (400, 360))
+    
+        self.player = Player(self.player_path, self.all_sprites, (400, 360))
     def shoot_bullet(self):
-        position = self.player.rect.center
+        position = self.player.rect.center 
         direction = self.player.direction
-        Bullet( position, direction, self.all_sprites)
+        Bullet( position, direction, (self.all_sprites, self.bullet_sprites))
         
         
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
-        map_path = load_pygame("/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/pygame_map_nils.tmx")
+        
+        # map_path = load_pygame("/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/pygame_map_nils.tmx")
+        map_path = load_pygame("/".join(["maps", "pygame_map_nils.tmx"]))
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
@@ -59,7 +68,7 @@ class Survivor:
             self.dt = self.clock.tick() / 1000
             
             # player.draw(screen, player_camera)
-            
+            self.shoot_bullet()
             self.all_sprites.update(self.dt)
             #self.screen.fill('black')
             self.all_sprites.draw(self.player.rect.center) 
