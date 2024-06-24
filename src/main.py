@@ -33,16 +33,23 @@ class Survivor:
         
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
-    
+        self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
         self.setup_map()
-        # "bug"wenn Player vor Map initialisiert wird
+        # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
     
         self.player = Player(self.player_path, self.all_sprites, (400, 360))
     def shoot_bullet(self):
-        position = self.player.rect.center 
-        direction = self.player.direction
+        position = self.player.rect.center
+        direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
+        self.bullet_direction = direction
+        #print("position: ", position, "direction: ", self.bullet_direction)
+        direction = self.player.direction * 250
+        if direction.x == 0 and direction.y == 0:
+            direction = self.bullet_direction.normalize() * 250
+            self.bullet_direction = direction
+        # print("position: ", position, "direction: ", direction)
         Bullet( position, direction, (self.all_sprites, self.bullet_sprites))
         
         
@@ -54,7 +61,7 @@ class Survivor:
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
-            print("x: ", x, "y: ", y, "image: ", image)
+            # print("x: ", x, "y: ", y, "image: ", image)
             
     def run(self):
         while True:
