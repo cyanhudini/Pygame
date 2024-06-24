@@ -1,6 +1,6 @@
 import pygame
 class Player(pygame.sprite.Sprite):
-    def __init__(self, image_path, groups, pos):
+    def __init__(self, image_path, groups, collision_objects, pos):
         # mit superklasse übernimmt Player auch die Methode von Sprite
         # wie z.B. update()
         
@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
         self.speed = 500
-
+        self.collision_objects = collision_objects
     def getInput(self):
         
         keys = pygame.key.get_pressed()
@@ -19,9 +19,31 @@ class Player(pygame.sprite.Sprite):
         
     def update(self, time):
         self.getInput()
+        self.check_hitbox_of_player_with_objects()
         self.rect.center += self.direction * self.speed * time
     
     def calculate_shooting_direction():
         # schieße entweder in die Richtung des nächsten Gegners oder in die Laufrichtung
         
         pass
+    def check_hitbox_of_player_with_objects(self):
+        # check whether player collides with objects
+        for obj in self.collision_objects:
+            if obj.rect.colliderect(self.rect):
+                print("Player collided with object")
+                if self.direction.x > 0 and self.rect.right > obj.rect.left: self.direction.x = 0
+                if self.direction.x < 0 and self.rect.left < obj.rect.right: self.direction.x = 0
+                if self.direction.y > 0 and self.rect.bottom > obj.rect.top: self.direction.y = 0
+                if self.direction.y < 0 and self.rect.top < obj.rect.bottom: self.direction.y = 0
+        
+    def zweite_methode(self):
+        # for ob in collision object:
+        # if collide_rect(self, ob):
+        #   if obj.x.left = self.x.right:
+        #       self.direction.x = 0
+        #   if obj.x.right = self.x.left:
+        #       self.direction.x = 0
+        #   if obj.y.top = self.y.bottom:
+        #       self.direction.y = 0
+        pass
+                

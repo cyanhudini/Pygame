@@ -4,6 +4,7 @@ import sys
 import math
 from player import Player
 from groups import SpriteGroups
+from collision_objects import CollisionObject
 from sprite import Sprite
 from bullet import Bullet
 from enemy import Enemy
@@ -34,8 +35,11 @@ class Survivor:
     # assets wie Sprite PNG's müsste man in einen extra Ordner machen
         #self.player_image_path = "r.png"  # 
         #self.player_image_path = self.  # R
+        
+        # die Gruppen tragen dazu bei das wir anhand dieser Zuordnung die Sprites anders behandeln können (objektorient)
         self.enemy_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
         
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
@@ -44,7 +48,7 @@ class Survivor:
         self.all_sprites = SpriteGroups()
         self.setup_map()
         
-        self.player = Player(self.player_path, self.all_sprites, (400, 360))
+        self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360))
     def shoot_bullet(self):
         position = self.player.rect.center
         #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
@@ -71,21 +75,22 @@ class Survivor:
         for i in range(1000):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
-            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image)
+            Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image)
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
         if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
-            print("Player collided with enemy")
+            #print("Player collided with enemy")
             # pygame.quit()
             # sys.exit()
+            pass
     def check_bullet_collision_with_enemy(self):
         for bullet in self.bullet_sprites:
             if pygame.sprite.spritecollide(bullet, self.enemy_sprites, False):
-                print("Bullet collided with enemy")
+                #print("Bullet collided with enemy")
                 bullet.kill()
     
     def check_closest_enemy(self):
-        threshold_distance = 500
+        threshold_distance = 200
         for enemy in self.enemy_sprites:
             distance = math.sqrt((self.player.rect.centerx - enemy.rect.centerx) ** 2 + (self.player.rect.centery - enemy.rect.centery) ** 2)
             if distance < threshold_distance:
