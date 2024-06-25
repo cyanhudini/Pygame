@@ -3,6 +3,9 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="32" height="32" source="D:/craftpix/PNG/Objects_separately/Bones_shadow1_1.png"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="5" width="26" height="22"/>
+  </objectgroup>
  </tile>
  <tile id="1">
   <image width="16" height="16" source="D:/craftpix/PNG/Objects_separately/Bones_shadow1_2.png"/>
@@ -648,5 +651,40 @@
  </tile>
  <wangsets>
   <wangset name="Unbenannter Satz" type="mixed" tile="-1"/>
+  <wangset name="Unbenannter Satz" type="edge" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="0" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="1" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="2" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="18" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="19" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="20" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="24" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="29" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="36" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="37" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="38" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="39" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="78" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="79" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="80" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="81" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="82" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="90" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="91" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="92" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="93" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="94" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="96" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="97" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="98" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="99" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="100" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="148" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="159" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="160" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="161" wangid="1,0,1,0,1,0,1,0"/>
+   <wangtile tileid="184" wangid="1,0,1,0,1,0,1,0"/>
+  </wangset>
  </wangsets>
 </tileset>

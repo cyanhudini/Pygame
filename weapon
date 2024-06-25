@@ -7,4 +7,3 @@ class Weapon (pygame.sprite.Sprite)
 
     #sprite setup
     super ().__init__(groups)
-    self.weapon.surf = pygame.image.load(image_path) 
