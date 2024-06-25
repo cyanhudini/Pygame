@@ -72,14 +72,14 @@ class Survivor:
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
         # spawn enemies in random locations zum testen
-        for coll_ob in map_path.get_layer_by_name("Collision").tiles():
+        for coll_ob in map_path.get_layer_by_name("Objektebene2"):
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
-            CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, self.all_sprites, self.collision_sprites)
+            CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
         
-        for i in range(1000):
-            x = random.randint(0, self.map_size_x)
-            y = random.randint(0, self.map_size_y)
-            Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image)
+        #for i in range(1000):
+        #    x = random.randint(0, self.map_size_x)
+        #    y = random.randint(0, self.map_size_y)
+        #    Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image)
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
         if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):

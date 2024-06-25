@@ -1,8 +1,8 @@
 import pygame
 
 class CollisionObject(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, ):
+    def __init__(self, pos,surface, groups, ):
         super().__init__(groups)
-        self.image = pygame.Surface((50, 50))
-        self.rect = self.image.get_rect(center=pos)
+        self.image = surface
+        self.rect = self.image.get_rect(topleft=pos)
         
