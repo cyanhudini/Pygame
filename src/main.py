@@ -41,7 +41,7 @@ class Survivor:
         
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
-        map_path = load_pygame("/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/pygame_map_nils.tmx")
+        map_path = load_pygame("/".join(["maps", "pygame_map_nils.tmx"]))
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
