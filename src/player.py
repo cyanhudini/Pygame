@@ -11,44 +11,45 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.pos)
         self.speed = 500
         self.collision_objects = collision_objects
+        self.hitbox = self.rect.inflate(-10, -10)
+        
     def getInput(self):
-        print(self.pos)
         keys = pygame.key.get_pressed()
         self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT]) # wenn pygame.K_RIGHT true ist, dann 1, sonst 0, also 1-0 = 1, wenn pygame.K_LEFT true ist, dann 1, sonst 0, also 0-1 = -1
         self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
         self.direction = self.direction.normalize() if self.direction else self.direction
         
+    def move(self, zeit):
+        self.hitbox.x += self.direction.x * self.speed * zeit
+        self.check_hitbox_of_player_with_objects("x")
+        self.hitbox.y += self.direction.y * self.speed * zeit
+        self.check_hitbox_of_player_with_objects("y")
+        self.rect.center = self.hitbox.center
+        pass
+        
     def update(self, time):
         self.getInput()
-        self.check_hitbox_of_player_with_objects()
+        self.move(time)
+        # self.check_hitbox_of_player_with_objects()
         self.rect.center += self.direction * self.speed * time
     
     def calculate_shooting_direction():
         # schieße entweder in die Richtung des nächsten Gegners oder in die Laufrichtung
         
         pass
-    def check_hitbox_of_player_with_objects(self):
+    def check_hitbox_of_player_with_objects(self, xy):
         # check whether player collides with objects
         for obj in self.collision_objects:
-            if obj.rect.colliderect(self.rect):
+            if obj.rect.colliderect(self.hitbox):
                 print("Player collided with object")
-                #if self.direction.x > 0 and self.rect.right > obj.rect.left: self.direction.x = 0
-                #elif self.direction.x < 0 and self.rect.left < obj.rect.right: self.direction.x = 0
-                #elif self.direction.y > 0 and self.rect.bottom > obj.rect.top: self.direction.y = 0
-                #elif self.direction.y < 0 and self.rect.top < obj.rect.bottom: self.direction.y = 0
+                if xy == "x":
+                    if self.direction.x > 0 : self.hitbox.right = obj.rect.left 
+                    if self.direction.x < 0 : self.hitbox.left = obj.rect.right
+                else:
+                    if self.direction.y > 0 : self.hitbox.bottom = obj.rect.top
+                    if self.direction.y < 0 : self.hitbox.top = obj.rect.bottom
                 
-                if self.direction.y > 0:
-                    self.rect.bottom = obj.rect.top
-                    #self.pos.y = obj.rect.top
-                elif self.direction.y < 0:
-                    self.rect.top = obj.rect.bottom
-                    #self.pos.y = obj.rect.bottom
-                elif self.direction.x > 0:
-                    self.rect.right = obj.rect.left
-                    #self.pos.x = obj.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = obj.rect.right
-                    #self.pos.x = obj.rect.right
+
                 
     def zweite_methode(self):
         # for ob in collision object:
