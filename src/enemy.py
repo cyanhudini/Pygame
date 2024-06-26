@@ -3,7 +3,7 @@ import pygame
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
-    def __init__(self,pos, groups, image_path, player, collision_objects, health, sprites):
+    def __init__(self,pos, groups, image_path, player, collision_objects, health):
         super().__init__(groups)
         self.groups = groups        
         self.image = pygame.image.load(image_path).convert_alpha()
@@ -16,7 +16,7 @@ class Enemy(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(-10, -10)
         self.collision_objects = collision_objects
         self.health= health
-        self.sprites = sprites
+        #self.sprites = sprites
         self.himmelsrichtung = 0
         
     def move(self, time):

@@ -40,7 +40,7 @@ class Survivor:
         self.enemy_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
-        
+        self.spawn_points = []
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
         self.bullet_direction = pygame.Vector2(1, 0)
@@ -48,10 +48,10 @@ class Survivor:
         self.all_sprites = SpriteGroups()
         self.last_shot = pygame.time.get_ticks()
         self.setup_map()
-        self.load_sprites_to_animate()
+        # self.load_sprites_to_animate()
         self.bullet_speed = 40
         self.t2 = 0
-        self.spawn_points = []
+
         self.player_sprites = {}
         self.mino_sprites = {} 
         self.bat_sprites = {}
