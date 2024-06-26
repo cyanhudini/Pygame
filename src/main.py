@@ -75,9 +75,10 @@ class Survivor:
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
         # spawn enemies in random locations zum testen
-        #for coll_ob in map_path.get_layer_by_name("Objektebene2"):
-        #    # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
-        #    CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
+        for coll_ob in map_path.get_layer_by_name("Objektebene 2"):
+            # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
+        
+            CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
         self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360)) 
         for i in range(1000):
             x = random.randint(0, self.map_size_x)
