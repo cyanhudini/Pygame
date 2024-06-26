@@ -112,14 +112,15 @@ class Survivor:
     def attack_speed(self):
         # attack speed
         # die Clock bzw. der tick beeinflusst die Uhr -> Bug
+        self.t1 = pygame.time.get_ticks()
+        print("t1: ", self.t1)
         
-        t1 = self.clock.get_time()
-        self.last_shot = self.last_shot
-        if self.time *1000 - self.last_shot >= 4:
-            self.shoot_bullet()
-            print("Bullet shot")
+        t_delta = self.t1 - self.last_shot
+        print("t_delta: ", t_delta)
+        if t_delta > 15:
             
-        self.last_shot = t1
+            self.shoot_bullet()
+        self.last_shot = self.t1
        
     
     def check_closest_enemy(self):
