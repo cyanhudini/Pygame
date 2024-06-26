@@ -24,7 +24,7 @@ class Survivor:
 
         pygame.display.set_caption("Player Movement")
         self.player_path = "/".join(["player", "walking", "down.png"])
-        self.bullet_sprite_image ="/".join(["player","projektil", "projektil3.png"])
+        self.bullet_sprite_image ="/".join(["player","projektil", "projektil3png.png"])
         # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
         self.enemy_sprite_image = "/".join(["enemy","mino", "mino_down.png"])
         
@@ -80,7 +80,7 @@ class Survivor:
         for i in range(1000):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
-            Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image, self.player)
+            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites)
        
         
     def check_player_collision_with_enemy(self):
@@ -91,10 +91,15 @@ class Survivor:
             # sys.exit()
             pass
     def check_bullet_collision_with_enemy(self):
-        for bullet in self.bullet_sprites:
-            if pygame.sprite.spritecollide(bullet, self.enemy_sprites, False):
-                #print("Bullet collided with enemy")
-                bullet.kill()
+        if self.bullet_sprites:
+            for bullet in self.bullet_sprites:
+                hit_sprite = pygame.sprite.spritecollide(bullet, self.enemy_sprites, pygame.sprite.collide_mask)
+                if hit_sprite:
+                    #print("Bullet collided with enemy")
+                    #gleiche Logik wie bei Bullet
+                    for hit_enemy in hit_sprite:
+                        hit_enemy.kill()
+                    bullet.kill()
     
     def check_closest_enemy(self):
         threshold_distance = 200
@@ -103,6 +108,12 @@ class Survivor:
             if distance < threshold_distance:
                 self.bullet_direction = pygame.Vector2(enemy.rect.center) - pygame.Vector2(self.player.rect.center)
                 break
+    def check_collision_with_enemies(self):
+        # da, wenn die Player Klasse sowie die Enemy Klasse Gruppe "collision sprites" bekommt, entsteht ein Bug bei dem entweder Gegner sich nicht bewegen
+        # deswegen ein simples Kollisions System, check ob zwei Sprites miteinander kollidieren
+        if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False, None):
+            pass
+        pass
     
     def run(self):
         while True:

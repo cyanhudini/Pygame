@@ -19,10 +19,10 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
         self.direction = self.direction.normalize() if self.direction else self.direction
         
-    def move(self, zeit):
-        self.hitbox.x += self.direction.x * self.speed * zeit
+    def move(self, time):
+        self.hitbox.x += self.direction.x * self.speed * time
         self.check_hitbox_of_player_with_objects("x")
-        self.hitbox.y += self.direction.y * self.speed * zeit
+        self.hitbox.y += self.direction.y * self.speed * time
         self.check_hitbox_of_player_with_objects("y")
         self.rect.center = self.hitbox.center
         
