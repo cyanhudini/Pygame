@@ -48,8 +48,16 @@ class Survivor:
         self.all_sprites = SpriteGroups()
         self.last_shot = pygame.time.get_ticks()
         self.setup_map()
+        self.load_sprites_to_animate()
         self.bullet_speed = 40
         self.t2 = 0
+        self.spawn_points = []
+        self.player_sprites = {}
+        self.mino_sprites = {} 
+        self.bat_sprites = {}
+        self.skeleton_sprites = {}
+        self.franky_sprites = {}
+        
         
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -64,7 +72,80 @@ class Survivor:
         # print("position: ", position, "direction: ", direction)
         Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
         
+    def load_sprites_to_animate(self):
+        # keine schöne Lösung, aber es funktioniert
+        self.player_sprites = {
+            "up": [pygame.image.load("/".join(["player", "walking", "1.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["player", "walking", "2.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["player", "walking", "3.png"])).convert_alpha()],
+            "down": [pygame.image.load("/".join(["player", "walking", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["player", "walking", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["player", "walking", "3.png"])).convert_alpha()],
+            "left": [pygame.image.load("/".join(["player", "walking", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["player", "walking", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["player", "walking", "3.png"])).convert_alpha()],
+            "right": [pygame.image.load("/".join(["player", "walking", "1.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["player", "walking", "2.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["player", "walking", "3.png"])).convert_alpha()]
+        }
         
+        self.mino_sprites = {
+            "up": [pygame.image.load("/".join(["enemy", "mino", "1.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "mino", "2.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "mino", "3.png"])).convert_alpha()],
+            "down": [pygame.image.load("/".join(["enemy", "mino", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "mino", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "mino", "3.png"])).convert_alpha()],
+            "left": [pygame.image.load("/".join(["enemy", "mino", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "mino", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "mino", "3.png"])).convert_alpha()],
+            "right": [pygame.image.load("/".join(["enemy", "mino", "1.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "mino", "2.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "mino", "3.png"])).convert_alpha()]
+            }
+        self.bat_sprites = {
+            "up": [pygame.image.load("/".join(["enemy", "bat", "1.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "bat", "2.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "bat", "3.png"])).convert_alpha()],
+            "down": [pygame.image.load("/".join(["enemy", "bat", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "bat", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "bat", "3.png"])).convert_alpha()],
+            "left": [pygame.image.load("/".join(["enemy", "bat", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "bat", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "bat", "3.png"])).convert_alpha()],
+            "right": [pygame.image.load("/".join(["enemy", "bat", "1.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "bat", "2.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "bat", "3.png"])).convert_alpha()]
+        }
+        self.skeleton_sprites = {
+            "up": [pygame.image.load("/".join(["enemy", "skeleton", "1.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "skeleton", "2.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "skeleton", "3.png"])).convert_alpha()],
+            "down": [pygame.image.load("/".join(["enemy", "skeleton", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "skeleton", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "skeleton", "3.png"])).convert_alpha()],
+            "left": [pygame.image.load("/".join(["enemy", "skeleton", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "skeleton", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "skeleton", "3.png"])).convert_alpha()],
+            "right": [pygame.image.load("/".join(["enemy", "skeleton", "1.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "skeleton", "2.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "skeleton", "3.png"])).convert_alpha()]
+        }
+        self.franky_sprites = {
+            "up": [pygame.image.load("/".join(["enemy", "franky", "1.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "franky", "2.png"])).convert_alpha(),
+                   pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()],
+            "down": [pygame.image.load("/".join(["enemy", "franky", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "franky", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()],
+            "left": [pygame.image.load("/".join(["enemy", "franky", "1.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "franky", "2.png"])).convert_alpha(),
+                     pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()],
+            "right": [pygame.image.load("/".join(["enemy", "franky", "1.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "franky", "2.png"])).convert_alpha(),
+                      pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()]
+        }
+    
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
         
@@ -85,6 +166,7 @@ class Survivor:
             if obj.name == "Spawn_Player":
                 self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (obj.x, obj.y), ) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
+                self.spawn_points.append((obj.x, obj.y))
                 pass
         
         for i in range(100):
@@ -94,7 +176,10 @@ class Survivor:
     
     def spawn_enemy(self):
         pass       
-        
+    
+    def choose_random_for_spawing(self):
+        pass
+    
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
         if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
@@ -105,7 +190,7 @@ class Survivor:
     def check_bullet_collision_with_enemy(self):
         if self.bullet_sprites:
             for bullet in self.bullet_sprites:
-                hit_sprite = pygame.sprite.spritecollide(bullet, self.enemy_sprites, pygame.sprite.collide_mask)
+                hit_sprite = pygame.sprite.spritecollide(bullet, self.enemy_sprites, None)
                 if hit_sprite:
                     #print("Bullet collided with enemy")
                     #gleiche Logik wie bei Bullet
@@ -156,7 +241,7 @@ class Survivor:
             
             # player.draw(screen, player_camera)
             self.check_closest_enemy()
-            self.check_player_collision_with_enemy()
+            #self.check_player_collision_with_enemy()
             self.check_bullet_collision_with_enemy()
             self.attack_speed()
             self.all_sprites.update(self.time)
