@@ -80,7 +80,7 @@ class Survivor:
         
             CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
         self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360)) 
-        for i in range(1000):
+        for i in range(100):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
             Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
@@ -112,13 +112,15 @@ class Survivor:
     def attack_speed(self):
         # attack speed
         # die Clock bzw. der tick beeinflusst die Uhr -> Bug
+        self.t1 = pygame.time.get_ticks()
+        print("t1: ", self.t1)
         
-        
-        if self.time - self.last_shot >= 1:
-            self.shoot_bullet()
-            print("Bullet shot")
+        t_delta = self.t1 - self.last_shot
+        print("t_delta: ", t_delta)
+        if t_delta > 15:
             
-        self.last_shot = self.time
+            self.shoot_bullet()
+        self.last_shot = self.t1
        
     
     def check_closest_enemy(self):

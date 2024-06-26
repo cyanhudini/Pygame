@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         # check whether player collides with objects
         for obj in self.collision_objects:
             if obj.rect.colliderect(self.hitbox):
-                print("Player collided with object")
+                #print("Player collided with object")
                 if xy == "x":
                     if self.direction.x > 0 : self.hitbox.right = obj.rect.left 
                     if self.direction.x < 0 : self.hitbox.left = obj.rect.right

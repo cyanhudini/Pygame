@@ -6,8 +6,8 @@
  <tileset firstgid="1" source="background.tsx"/>
  <tileset firstgid="1201" source="objects.tsx"/>
  <tileset firstgid="1416" source="map_loads.tsx"/>
- <tileset firstgid="1656" name="map_loads (1)" tilewidth="32" tileheight="32" tilecount="768" columns="32">
-  <image source="D:/map_loads (1).jpg" width="1024" height="768"/>
+ <tileset firstgid="1656" name="map_loads" tilewidth="32" tileheight="32" tilecount="768" columns="32">
+  <image source="map_loads.jpg" width="1024" height="768"/>
  </tileset>
  <layer id="1" name="Kachelebene" width="124" height="64" offsetx="92" offsety="0">
   <data encoding="csv">
