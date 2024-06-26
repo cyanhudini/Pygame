@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * self.speed * zeit
         self.check_hitbox_of_player_with_objects("y")
         self.rect.center = self.hitbox.center
-        pass
+        
         
     def update(self, time):
         self.getInput()
@@ -35,7 +35,6 @@ class Player(pygame.sprite.Sprite):
     
     def calculate_shooting_direction():
         # schieße entweder in die Richtung des nächsten Gegners oder in die Laufrichtung
-        
         pass
     def check_hitbox_of_player_with_objects(self, xy):
         # check whether player collides with objects

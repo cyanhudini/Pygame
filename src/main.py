@@ -24,7 +24,7 @@ class Survivor:
 
         pygame.display.set_caption("Player Movement")
         self.player_path = "/".join(["player", "walking", "down.png"])
-        self.bullet_sprite_image ="/".join(["player","projektil", "pr_small_rot.png"])
+        self.bullet_sprite_image ="/".join(["player","projektil", "projektil3.png"])
         # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
         self.enemy_sprite_image = "/".join(["enemy","mino", "mino_down.png"])
         
@@ -46,9 +46,10 @@ class Survivor:
         self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
+        
         self.setup_map()
         
-        self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360))
+        
     def shoot_bullet(self):
         position = self.player.rect.center
         #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
@@ -66,20 +67,22 @@ class Survivor:
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
         
         # map_path = load_pygame("/home/nils/Uni/ObjektOrientSprachen/Pygame/maps/pygame_map_nils.tmx")
-        map_path = load_pygame("/".join(["maps", "pygame_map.tmx"]))
+        map_path = load_pygame("/".join(["maps", "pygame_map_nils.tmx"]))
         for x, y, image in map_path.get_layer_by_name("Kachelebene").tiles():
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
         # spawn enemies in random locations zum testen
-        for coll_ob in map_path.get_layer_by_name("Objektebene2"):
-            # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
-            CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
+        #for coll_ob in map_path.get_layer_by_name("Objektebene2"):
+        #    # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
+        #    CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
+        self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360)) 
+        for i in range(1000):
+            x = random.randint(0, self.map_size_x)
+            y = random.randint(0, self.map_size_y)
+            Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image, self.player)
+       
         
-        #for i in range(1000):
-        #    x = random.randint(0, self.map_size_x)
-        #    y = random.randint(0, self.map_size_y)
-        #    Enemy((x, y), (self.all_sprites, self.enemy_sprites, self.collision_sprites), self.enemy_sprite_image)
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
         if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
