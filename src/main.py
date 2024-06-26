@@ -49,7 +49,7 @@ class Survivor:
         self.last_shot = pygame.time.get_ticks()
         self.setup_map()
         self.bullet_speed = 40
-        
+        self.last_shot = 0
         
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -112,11 +112,13 @@ class Survivor:
         # attack speed
         # die Clock bzw. der tick beeinflusst die Uhr -> Bug
         
-        tick = pygame.time.get_ticks()
-        if tick - self.last_shot >= 160:
-            self.last_shot = tick
+        
+        if self.time - self.last_shot >= 1:
             self.shoot_bullet()
-            print("sh")
+            print("Bullet shot")
+            
+        self.last_shot = self.time
+       
     
     def check_closest_enemy(self):
         threshold_distance = 200
