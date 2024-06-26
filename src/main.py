@@ -154,9 +154,19 @@ class Survivor:
         
         folders = list(walk(enemy_sprites_base))[0][1]
         for folder in folders:
-            print("sub_folder: ", folder)
-            # if folder == 
-            
+            print("folder: ", folder)
+            for folder_path, sub_folders, files in os.walk("/".join([enemy_sprites_base, folder])):
+            # if folder ==
+                match folder:
+                    case "1":
+                        self.franky_sprites.append(sub_folders)
+                    case "2":
+                        self.bat_sprites.append(sub_folders)
+                    case "3":
+                        self.mino_sprites.append(sub_folders)
+                    case "4":
+                        self.skeleton_sprites.append(sub_folders)
+                    
         
         
         
@@ -200,8 +210,20 @@ class Survivor:
     
     def spawn_enemy(self):
         #  randomly select a whole number between inclusive 1 and 4
-        random_spawn_point = random.randint(1, 4)
-        sprites = load_animation_sprites_walking_direction("down", random_spawn_point)
+        # different enemy types should have different spawn rates, f.e. 1: 50%, 2: 30%, 3: 15%, 4: 5%
+        random_enemy_type = random.randint(1, 4)
+        
+        match random_enemy_type:
+            case 1:
+                Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 300, self.franky_sprites)
+            case 2:
+                Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, self.bat_sprites)
+            case 3:
+                Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, self.mino_sprites)
+            case 4:
+                Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, self.skeleton_sprites)
+        
+        #sprites = load_animation_sprites_walking_direction("down", random_spawn_point)
         Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, sprites)
            
     

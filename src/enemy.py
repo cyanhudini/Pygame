@@ -7,8 +7,8 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__(groups)
         self.groups = groups        
         self.sprites = sprites
-        # from all the sprites, we only need the first one
-        self.image = self.sprites[0]
+        # select the first sprite from the folder "down" and the first sprite
+        # 
         
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
@@ -20,6 +20,7 @@ class Enemy(pygame.sprite.Sprite):
         self.health= health
         self.sprites = sprites
         self.himmelsrichtung = "down"
+        # (64 x 585- 645) * 5
         
     def move(self,time):
         # genau die gleiche Methode wie bei Player
