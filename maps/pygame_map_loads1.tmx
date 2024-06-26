@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="124" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="737">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="124" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="746">
  <editorsettings>
   <export target="pygame_map_nils.tmx" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" source="background.tsx"/>
  <tileset firstgid="1201" source="objects.tsx"/>
  <tileset firstgid="1416" source="map_loads.tsx"/>
- <tileset firstgid="1656" name="map_loads" tilewidth="32" tileheight="32" tilecount="768" columns="32">
-  <image source="map_loads.jpg" width="1024" height="768"/>
+ <tileset firstgid="1656" name="map_loads (1)" tilewidth="32" tileheight="32" tilecount="768" columns="32">
+  <image source="D:/map_loads (1).jpg" width="1024" height="768"/>
  </tileset>
  <layer id="1" name="Kachelebene" width="124" height="64" offsetx="92" offsety="0">
   <data encoding="csv">
@@ -150,7 +150,7 @@
   <object id="258" gid="1371" x="1967.67" y="870" width="128" height="128"/>
   <object id="259" gid="1371" x="1918.33" y="1123.33" width="128" height="128"/>
   <object id="260" gid="1383" x="1739.67" y="1034" width="64" height="64"/>
-  <object id="261" gid="1383" x="1736" y="771.333" width="64" height="64"/>
+  <object id="261" gid="1383" x="1749" y="784.333" width="64" height="64"/>
   <object id="273" gid="1210" x="3885.67" y="1373.33" width="53.3333" height="64"/>
   <object id="284" gid="1210" x="3881.67" y="1828.67" width="48" height="64"/>
   <object id="285" gid="1214" x="3881.67" y="1762" width="48" height="84.6667"/>
@@ -499,5 +499,31 @@
   <object id="729" gid="1210" x="3879" y="1896.33" width="53.3333" height="64"/>
   <object id="735" gid="1381" x="3877.67" y="1979.67" width="53.3333" height="80"/>
  </objectgroup>
- <objectgroup id="6" name="Objektebene 1" visible="0" locked="1"/>
+ <objectgroup id="6" name="Objektebene 1" locked="1">
+  <object id="737" name="Spawnpoint1" x="132" y="197" width="51" height="49">
+   <ellipse/>
+  </object>
+  <object id="738" name="Spawnpoint2" x="143" y="1679" width="48" height="51">
+   <ellipse/>
+  </object>
+  <object id="739" name="Spawnpoint3" x="3719" y="1830" width="76" height="56">
+   <ellipse/>
+  </object>
+  <object id="740" name="Spawnpoint4" x="3687" y="79" width="72" height="60">
+   <ellipse/>
+  </object>
+  <object id="741" name="Spawnpoint5" x="2426" y="73" width="56" height="53">
+   <ellipse/>
+  </object>
+  <object id="742" name="Spawnpoint6" x="2458" y="1783.5" width="56" height="53">
+   <ellipse/>
+  </object>
+  <object id="743" name="Spawnpoint7" x="302" y="594" width="56" height="52">
+   <ellipse/>
+  </object>
+  <object id="744" name="Spawnpoint8" x="3728" y="658" width="58" height="49">
+   <ellipse/>
+  </object>
+  <object id="745" name="Spawn Player" x="1839" y="494" width="48" height="46"/>
+ </objectgroup>
 </map>
