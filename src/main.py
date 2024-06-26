@@ -169,10 +169,10 @@ class Survivor:
                 self.spawn_points.append((obj.x, obj.y))
                 pass
         
-        for i in range(100):
-            x = random.randint(0, self.map_size_x)
-            y = random.randint(0, self.map_size_y)
-            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
+        #for i in range(100):
+        #    x = random.randint(0, self.map_size_x)
+        #    y = random.randint(0, self.map_size_y)
+        #    Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
     
     def spawn_enemy(self):
         pass       
