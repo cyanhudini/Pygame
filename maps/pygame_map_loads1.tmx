@@ -656,6 +656,6 @@
   <object id="744" name="Spawnpoint8" x="5168" y="1394" width="58" height="49">
    <ellipse/>
   </object>
-  <object id="745" name="Spawn Player" x="3279" y="1230" width="48" height="46"/>
+  <object id="745" name="Spawn_Player" x="3279" y="1230" width="48" height="46"/>
  </objectgroup>
 </map>

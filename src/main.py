@@ -49,7 +49,7 @@ class Survivor:
         self.last_shot = pygame.time.get_ticks()
         self.setup_map()
         self.bullet_speed = 40
-        self.last_shot = 0
+        self.t2 = 0
         
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -74,17 +74,26 @@ class Survivor:
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
             Sprite((x * 32, y * 32), image, self.all_sprites)
             # print("x: ", x, "y: ", y, "image: ", image)
-        # spawn enemies in random locations zum testen
+        # spawn alle Collision Objects
         for coll_ob in map_path.get_layer_by_name("Objektebene 2"):
             # mult. mit 32 da Kacheln 32x32 groß sind in Tiled
         
             CollisionObject((coll_ob.x, coll_ob.y), coll_ob.image, (self.all_sprites, self.collision_sprites))
-        self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (400, 360)) 
+            
+        
+        for obj in map_path.get_layer_by_name("Objektebene 1"):
+            if obj.name == "Spawn_Player":
+                self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (obj.x, obj.y), ) 
+            else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
+                pass
+        
         for i in range(100):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
             Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
-       
+    
+    def spawn_enemy(self):
+        pass       
         
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
@@ -113,14 +122,11 @@ class Survivor:
         # attack speed
         # die Clock bzw. der tick beeinflusst die Uhr -> Bug
         self.t1 = pygame.time.get_ticks()
-        print("t1: ", self.t1)
-        
-        t_delta = self.t1 - self.last_shot
+        t_delta = self.t1 - self.t2
         print("t_delta: ", t_delta)
-        if t_delta > 15:
-            
+        if t_delta >= 150:
             self.shoot_bullet()
-        self.last_shot = self.t1
+            self.t2 = self.t1
        
     
     def check_closest_enemy(self):
