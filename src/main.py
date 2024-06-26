@@ -2,6 +2,7 @@ import pygame
 import random
 import sys
 import math
+import os
 from player import Player
 from groups import SpriteGroups
 from collision_objects import CollisionObject
@@ -146,6 +147,23 @@ class Survivor:
                       pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()]
         }
     
+    def load_animation_sprites_walking_direction(self, enemy_type, himmelrichtung):
+        enemy_sprites_base = os.path("/".join(["enemy", enemy_type, himmelrichtung]))
+        files = [f for f in os.listdir(enemy_sprites_base) if f.endswith(".png")]
+        # da Namen mit Zahlen beginnen kann man easy sortieren
+        # lambda ist eine anonyme Funktion, nach Split für 1.png: split[0] = "1" und split[1] = "png"
+        files.sort(key = lambda x: int(x.split(".")[0]))
+        
+        match enemy_type:
+            case "mino":
+                self.mino_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+            case "bat":
+                self.bat_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+            case "skeleton":
+                self.skeleton_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+            case "franky":
+                self.franky_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+    
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
         
@@ -187,6 +205,7 @@ class Survivor:
             # pygame.quit()
             # sys.exit()
             pass
+        
     def check_bullet_collision_with_enemy(self):
         if self.bullet_sprites:
             for bullet in self.bullet_sprites:

@@ -16,10 +16,10 @@ class Enemy(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(-10, -10)
         self.collision_objects = collision_objects
         self.health= health
-        #self.sprites = sprites
-        self.himmelsrichtung = 0
+        self.sprites = sprites
+        self.himmelsrichtung = "down"
         
-    def move(self, time):
+    def move(self,time):
         # genau die gleiche Methode wie bei Player
         target_position = pygame.math.Vector2(self.player_target.rect.center)
         self_position = pygame.math.Vector2(self.rect.center)
