@@ -46,8 +46,9 @@ class Survivor:
         self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
-        
+        self.last_shot = pygame.time.get_ticks()
         self.setup_map()
+        self.bullet_speed = 40
         
         
     def shoot_bullet(self):
@@ -55,9 +56,10 @@ class Survivor:
         #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
         #self.bullet_direction = direction
         #print("position: ", position, "direction: ", self.bullet_direction)
-        direction = self.player.direction * 250
+        direction = self.player.direction
         if direction.x == 0 and direction.y == 0:
-            direction = self.bullet_direction.normalize() * 250
+            # direction ist praktisch die Geschwindigkeit der Kugel bzw. mit
+            direction = self.bullet_direction.normalize() * self.bullet_speed
             self.bullet_direction = direction
         # print("position: ", position, "direction: ", direction)
         Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
@@ -80,7 +82,7 @@ class Survivor:
         for i in range(1000):
             x = random.randint(0, self.map_size_x)
             y = random.randint(0, self.map_size_y)
-            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites)
+            Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
        
         
     def check_player_collision_with_enemy(self):
@@ -98,8 +100,23 @@ class Survivor:
                     #print("Bullet collided with enemy")
                     #gleiche Logik wie bei Bullet
                     for hit_enemy in hit_sprite:
-                        hit_enemy.kill()
+                        hit_enemy.health -= 10
+                        print("Enemy health: ", hit_enemy.health)
+                        if hit_enemy.health <= 0:
+                            print("Enemy killed")
+                            hit_enemy.kill()
+
                     bullet.kill()
+                    
+    def attack_speed(self):
+        # attack speed
+        # die Clock bzw. der tick beeinflusst die Uhr -> Bug
+        
+        tick = pygame.time.get_ticks()
+        if tick - self.last_shot >= 160:
+            self.last_shot = tick
+            self.shoot_bullet()
+            print("sh")
     
     def check_closest_enemy(self):
         threshold_distance = 200
@@ -124,14 +141,14 @@ class Survivor:
 
             #player_camera.update(player, map_size_x, map_size_y)
             
-            self.dt = self.clock.tick() / 1000
+            self.time = self.clock.tick() / 1000
             
             # player.draw(screen, player_camera)
             self.check_closest_enemy()
             self.check_player_collision_with_enemy()
             self.check_bullet_collision_with_enemy()
-            self.shoot_bullet()
-            self.all_sprites.update(self.dt)
+            self.attack_speed()
+            self.all_sprites.update(self.time)
             #self.screen.fill('black')
             self.all_sprites.draw(self.player.rect.center) 
             
