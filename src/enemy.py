@@ -3,10 +3,12 @@ import pygame
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
-    def __init__(self,pos, groups, image_path, player, collision_objects, health):
+    def __init__(self,pos, groups, player, collision_objects, health, sprites):
         super().__init__(groups)
         self.groups = groups        
-        self.image = pygame.image.load(image_path).convert_alpha()
+        self.sprites = sprites
+        # from all the sprites, we only need the first one
+        self.image = self.sprites[0]
         
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player

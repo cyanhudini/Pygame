@@ -58,7 +58,7 @@ class Survivor:
         self.bat_sprites = {}
         self.skeleton_sprites = {}
         self.franky_sprites = {}
-        
+        self.load_animation_sprites_walking_direction()
         
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -147,22 +147,28 @@ class Survivor:
                       pygame.image.load("/".join(["enemy", "franky", "3.png"])).convert_alpha()]
         }
     
-    def load_animation_sprites_walking_direction(self, enemy_type, himmelrichtung):
-        enemy_sprites_base = os.path("/".join(["enemy", enemy_type, himmelrichtung]))
-        files = [f for f in os.listdir(enemy_sprites_base) if f.endswith(".png")]
+    def load_animation_sprites_walking_direction(self):
+        enemy_sprites_base = os.path("/".join(["enemy"]))
         # da Namen mit Zahlen beginnen kann man easy sortieren
         # lambda ist eine anonyme Funktion, nach Split für 1.png: split[0] = "1" und split[1] = "png"
-        files.sort(key = lambda x: int(x.split(".")[0]))
         
-        match enemy_type:
-            case "mino":
-                self.mino_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
-            case "bat":
-                self.bat_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
-            case "skeleton":
-                self.skeleton_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
-            case "franky":
-                self.franky_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+        folders = list(walk(enemy_sprites_base))[0][1]
+        for folder in folders:
+            print("sub_folder: ", folder)
+            # if folder == 
+            
+        
+        
+        
+        #match enemy_type_number:
+        #    case 1:
+        #        self.mino_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+        #    case 2:
+        #        self.bat_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+        #    case 3:
+        #        self.skeleton_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
+        #    case 4:
+        #        self.franky_sprites[himmelrichtung] = [pygame.image.load(( "/".join([enemy_sprites_base, f]).sort(key = lambda x: int(x.split(".")[0])))).convert_alpha() for f in files]
     
     def setup_map(self):
         # join( " pfad", "zur", "karte")= "pfad/zur/karte"
@@ -193,7 +199,11 @@ class Survivor:
         #    Enemy((x, y), (self.all_sprites, self.enemy_sprites), self.enemy_sprite_image, self.player, self.collision_sprites, 100)
     
     def spawn_enemy(self):
-        pass       
+        #  randomly select a whole number between inclusive 1 and 4
+        random_spawn_point = random.randint(1, 4)
+        sprites = load_animation_sprites_walking_direction("down", random_spawn_point)
+        Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, sprites)
+           
     
     def choose_random_for_spawing(self):
         pass
