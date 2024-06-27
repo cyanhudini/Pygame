@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="221" height="134" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#000e00" nextlayerid="8" nextobjectid="36150">
  <editorsettings>
-  <export format="tmx"/>
+  <export target="pygame_map_nils.tmx" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" source="objects.tsx"/>
  <tileset firstgid="216" name="map_loads" tilewidth="32" tileheight="32" tilecount="768" columns="32">
