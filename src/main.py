@@ -58,7 +58,7 @@ class Survivor:
         self.bat_sprites = {}
         self.skeleton_sprites = {}
         self.franky_sprites = {}
-        self.load_animation_sprites_walking_direction()
+        #self.load_animation_sprites_walking_direction()
         
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -201,7 +201,7 @@ class Survivor:
                 self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (obj.x, obj.y), ) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
-                pass
+                
         
         #for i in range(100):
         #    x = random.randint(0, self.map_size_x)
@@ -280,6 +280,7 @@ class Survivor:
         pass
     
     def run(self):
+        
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
