@@ -18,8 +18,8 @@ class Survivor:
 
         #self.screen_width = 1000
         #self.screen_height = 1000
-        self.map_size_x = 10000
-        self.map_size_y = 10000
+        #self.map_size_x = 10000
+        #self.map_size_y = 10000
         self.screen = pygame.display.set_mode((SCREEN_HEIGHT,SCREEN_WIDTH))
     # camera = Camera(800, 600)
 
