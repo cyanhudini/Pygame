@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="221" height="134" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#000e00" nextlayerid="8" nextobjectid="36150">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="221" height="134" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#000e00" nextlayerid="8" nextobjectid="36151">
  <editorsettings>
   <export format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" source="objects.tsx"/>
  <tileset firstgid="216" name="map_loads" tilewidth="32" tileheight="32" tilecount="768" columns="32">
-  <image source="D:/map_loads.jpg" width="1024" height="768"/>
+  <image source="map_loads.jpg" width="1024" height="768"/>
  </tileset>
- <tileset firstgid="984" name="map_loads (1)" tilewidth="32" tileheight="32" tilecount="768" columns="32">
-  <image source="D:/map_loads (1).jpg" width="1024" height="768"/>
+ <tileset firstgid="984" name="map_loads_green" tilewidth="32" tileheight="32" tilecount="768" columns="32">
+  <image source="map_loads_green.jpg" width="1024" height="768"/>
  </tileset>
  <tileset firstgid="1752" name="Lich_shadow1" tilewidth="32" tileheight="32" tilecount="12" columns="4">
-  <image source="Objects_separately/Lich_shadow1.png" width="152" height="116"/>
+  <image source="Objects_separately/Lich_shadow1.png" width="158" height="125"/>
  </tileset>
  <tileset firstgid="1764" name="wald" tilewidth="32" tileheight="32" tilecount="768" columns="32">
-  <image source="D:/wald.jpg" width="1024" height="768"/>
+  <image source="wald.jpg" width="1024" height="768"/>
  </tileset>
  <layer id="1" name="Kachelebene" width="221" height="134" offsetx="122.667" offsety="-2.66667">
   <data encoding="csv">
@@ -581,6 +581,7 @@
   <object id="36146" gid="70" x="1320" y="1168" width="128" height="128"/>
   <object id="36148" gid="101" x="2901" y="2946" width="64" height="64"/>
   <object id="36149" gid="102" x="3731" y="618" width="64" height="64"/>
+  <object id="36150" gid="160" x="2609.33" y="1970" width="267.333" height="240"/>
  </objectgroup>
  <objectgroup id="6" name="Objektebene 1" locked="1">
   <object id="737" name="Spawnpoint1" x="1572" y="933" width="51" height="49">
