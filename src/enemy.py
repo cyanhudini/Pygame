@@ -6,10 +6,10 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self,pos, groups, player, collision_objects, health, sprites):
         super().__init__(groups)
         self.groups = groups        
-        self.sprites = sprites
+        
         # select the first sprite from the folder "down" and the first sprite
         # 
-        
+        self.image = pygame.image.load(sprites).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
         self.speed= 100

@@ -24,7 +24,7 @@ class Survivor:
     # camera = Camera(800, 600)
 
         pygame.display.set_caption("Player Movement")
-        self.player_path = "/".join(["player", "walking", "down.png"])
+        self.player_path = "/".join(["player", "down", "1.png"])
         self.bullet_sprite_image ="/".join(["player","projektil", "projektil3png.png"])
         # "bug"wenn Player vor Map initialisiert wird, ist Spieler nicht sichtbar bzw. hinter der Map
         self.enemy_sprite_image = "/".join(["enemy","mino", "mino_down.png"])
@@ -279,6 +279,14 @@ class Survivor:
             pass
         pass
     
+    def spawn_enemy(self):
+        # spawn enemies in random intervals
+        #
+        random_spawn_point = random.randint(0, len(self.spawn_points) - 1)
+        path_mino = "/".join(["enemy", "1","down", "2.png"])
+        
+        Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, path_mino)
+    
     def run(self):
         
         while True:
@@ -293,6 +301,7 @@ class Survivor:
             
             # player.draw(screen, player_camera)
             self.check_closest_enemy()
+            #self.spawn_enemy()
             #self.check_player_collision_with_enemy()
             self.check_bullet_collision_with_enemy()
             self.attack_speed()
