@@ -281,11 +281,22 @@ class Survivor:
     
     def spawn_enemy(self):
         # spawn enemies in random intervals
-        #
-        random_spawn_point = random.randint(0, len(self.spawn_points) - 1)
-        path_mino = "/".join(["enemy", "1","down", "2.png"])
+        # generate a random float between 0 and 1
         
-        Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, path_mino)
+        spawn_chance = 0.01
+        limit = random.random()
+        if limit < spawn_chance:
+            random_spawn_point = random.randint(0, len(self.spawn_points) - 1)
+            path_mino = "/".join(["enemy", "1","down", "2.png"])
+            
+            Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, path_mino)
+    def load_spritesheets(self):
+        self.player_sprites = pygame.image.load("/".join(["player", "player_all.png"])).convert_alpha()
+        self.mino_sprites = pygame.image.load("/".join(["enemy", "mino_all.png"])).convert_alpha()
+        self.bat_sprites = pygame.image.load("/".join(["enemy", "bat_all.png"])).convert_alpha()
+        self.skeleton_sprites = pygame.image.load("/".join(["enemy",  "skelly_all.png"])).convert_alpha()
+        self.franky_sprites = pygame.image.load("/".join(["enemy", "franky_all.png"])).convert_alpha()
+        
     
     def run(self):
         
@@ -301,7 +312,7 @@ class Survivor:
             
             # player.draw(screen, player_camera)
             self.check_closest_enemy()
-            #self.spawn_enemy()
+            self.spawn_enemy()
             #self.check_player_collision_with_enemy()
             self.check_bullet_collision_with_enemy()
             self.attack_speed()

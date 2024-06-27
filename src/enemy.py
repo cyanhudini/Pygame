@@ -1,5 +1,5 @@
 import pygame
-
+import spritesheet
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
@@ -8,7 +8,8 @@ class Enemy(pygame.sprite.Sprite):
         self.groups = groups        
         
         # select the first sprite from the folder "down" and the first sprite
-        # 
+        #
+        self.spritesheet = spritesheet.spritesheet(sprites)
         self.image = pygame.image.load(sprites).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
