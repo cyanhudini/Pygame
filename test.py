@@ -4,31 +4,41 @@ import os
 import pygame
 import spritesheet
 
-def load_animation_sprites_walking_direction():
-    enemy_sprites_base = "/".join(['enemy'])
-    #files = [f for f in os.listdir(enemy_sprites_base) if f.endswith(".png")]
-    # da Namen mit Zahlen beginnen kann man easy sortieren
-    # lambda ist eine anonyme Funktion, nach Split für 1.png: split[0] = "1" und split[1] = "png"
-    #files.sort(key = lambda x: int(x.split(".")[0]))
-    spritesheet1 = spritesheet.Spritesheet()
-    #spritesheet = pygame.image.load("/".join([enemy_sprites_base,"1", "franky_all.png"])).convert_alpha()
-    #enemy_sprites_base = os.path("/".join(["enemy"]))
-    folders = list(os.walk(enemy_sprites_base))[0][1]
-    for folder in folders:
-        print("folder: ", folder)
-        # if folder ==
+
+
+class spritesheet(object):
+    def __init__(self, filename):
+        try:
+            self.sheet = pygame.image.load(filename).convert()
+        except (pygame.error, message):
+            print('Unable to load spritesheet image:', filename)
+            raise SystemExit(message)
+    # Load a specific image from a specific rectangle
+    def image_at(self, rectangle, colorkey = None):
+        "Loads image from x,y,x+offset,y+offset"
+        rect = pygame.Rect(rectangle)
+        image = pygame.Surface(rect.size).convert()
+        image.blit(self.sheet, (0, 0), rect)
+        if colorkey is not None:
+            if colorkey is -1:
+                colorkey = image.get_at((0,0))
+            image.set_colorkey(colorkey, pygame.RLEACCEL)
+        return image
+    # Load a whole bunch of images and return them as a list
+    def images_at(self, rects, colorkey = None):
+        "Loads multiple images, supply a list of coordinates" 
+        return [self.image_at(rect, colorkey) for rect in rects]
+    # Load a whole strip of images
+    def load_strip(self, rect, image_count, colorkey = None):
+        "Loads a strip of images and returns them as a list"
+        tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
+                for x in range(image_count)]
+        return self.images_at(tups, colorkey)
+
+
+class Test():
     
-        for folder_path, sub_folders, files in os.walk("/".join([enemy_sprites_base, folder])):
-            print("folder_path: ", folder_path)
-            print("sub_folders: ", sub_folders)
-            print("files: ", files)
-            # print index of "down"
-            #index = sub_folders.index('down')
-            print("sub_folders: ", sub_folders)
-            #print("files: ", files)
-                #print("sub_folder: ", sub_folder)
-                #print(sorted(sub_folder["down"], key = lambda name: int(name.split(".")[0]))[0])
-              
-            
+
+
 if __name__ == "__main__":
-    load_animation_sprites_walking_direction()
+    get_image(0, 0, 64, 64)
