@@ -48,25 +48,25 @@ class Enemy(pygame.sprite.Sprite):
         if self.direction.y < 0:
             self.himmelsrichtung = "up"
             self.image = (self.sprites[self.himmelsrichtung][math.floor(self.animation_index)]).convert_alpha()
-            self.animation_index += 0.1
+            self.animation_index += 0.3
             if self.animation_index >= len(self.sprites)- 1:
                 self.animation_index = 0
         if self.direction.y > 0:
             self.himmelsrichtung = "down"
             self.image  =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.1
+            self.animation_index += 0.3
             if self.animation_index >= len(self.sprites):
                 self.animation_index = 0
         if self.direction.x < 0:
             self.himmelsrichtung = "left"
             self.image =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.1
+            self.animation_index += 0.3
             if self.animation_index >= len(self.sprites):
                 self.animation_index = 0
         if self.direction.x > 0:
             self.himmelsrichtung = "right"
             self.image = self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.1
+            self.animation_index += 0.3
             if self.animation_index >= len(self.sprites):
                 self.animation_index = 0
         
