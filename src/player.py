@@ -1,11 +1,15 @@
 import pygame
 import math
 class Player(pygame.sprite.Sprite):
-    def __init__(self, player_sprites, groups, collision_objects, pos):
+    def __init__(self, player_sprites, groups, collision_objects, pos, max_health):
         # mit superklasse übernimmt Player auch die Methode von Sprite
         # wie z.B. update()
         
         super().__init__(groups)
+        # draw player as a simple red rectangle
+        # self.image = pygame.Surface((50, 50))
+        # self.image.fill((255, 0, 0))
+        
         self.starting_position = pos
         self.player_sprites = player_sprites
         self.image = self.player_sprites["down"][0]
@@ -19,7 +23,10 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 0.1
         self.hitbox = self.rect.inflate(-10, -10)
         self.shooting_mode = "single"
-        
+        self.max_health = 1000
+        self.current_health = self.max_health
+
+  
     def getInput(self):
         keys = pygame.key.get_pressed()
         self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT]) # wenn pygame.K_RIGHT true ist, dann 1, sonst 0, also 1-0 = 1, wenn pygame.K_LEFT true ist, dann 1, sonst 0, also 0-1 = -1
@@ -35,7 +42,7 @@ class Player(pygame.sprite.Sprite):
     
     def animate_sprites(self):
         current_animation_sprite = (self.player_sprites[self.himmelsrichtung])
-        print("animation_index", self.animation_index)  
+          
         if self.direction.y < 0:
             self.himmelsrichtung = "up"
             self.image = current_animation_sprite[(math.floor(self.animation_index))].convert_alpha()

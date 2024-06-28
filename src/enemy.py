@@ -27,14 +27,24 @@ class Enemy(pygame.sprite.Sprite):
         # (64 x 585- 645) * 5
     
     
-    
+    def check_if_distance_is_zero(self, target_pos, self_pos):
+        # check if the distance between the player and the enemy is zero
+        distance = math.sqrt((target_pos[0] - self_pos[0])**2 + (target_pos[1] - self_pos[1])**2)
+        if distance == 0:
+            return pygame.math.Vector2(0,0)
+        else:
+            return ((target_pos - self_pos).normalize())
+            
+        
+        
     
     def move(self,time):
         # genau die gleiche Methode wie bei Player
         target_position = pygame.math.Vector2(self.player_target.rect.center)
         self_position = pygame.math.Vector2(self.rect.center)
-                
-        self.direction = (target_position - self_position).normalize()
+        
+        self.direction = self.check_if_distance_is_zero(target_position, self_position)
+        
         self.hitbox.x += self.direction.x * self.speed * time
         self.check_collision_with_objects("x")
         self.hitbox.y += self.direction.y * self.speed * time
