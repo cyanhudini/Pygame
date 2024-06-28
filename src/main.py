@@ -98,64 +98,80 @@ class Survivor:
                     ]
         }
         
-        ''' self.franky = {
-            "up": [pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
-                   pygame.image.load("/".join(["enemy", "franky","up", "2.png"])),
-                   pygame.image.load("/".join(["enemy", "franky","up", "3.png"]))
-                   pygame.image.load("/".join(["enemy", "franky","up", "4.png"]))],
-            "down": [pygame.image.load("/".join(["enemy", "franky","down", "1.png"])),
+        self.franky = {
+            "up":[
+                 #   pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","up", "2.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","up", "3.png"])),
+                 #  pygame.image.load("/".join(["enemy", "franky","up", "4.png"]))
+                    ],
+            "down":[
+                    #pygame.image.load("/".join(["enemy", "franky","down", "1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","down", "2.png"])),
                      pygame.image.load("/".join(["enemy", "franky","down" "3.png"])),
-                     pygame.image.load("/".join(["enemy", "franky","down" "4.png"]))
+                   # pygame.image.load("/".join(["enemy", "franky","down" "4.png"]))
                      ],
             "left": [pygame.image.load("/".join(["enemy", "franky","left" "1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","left", "2.png"])),
-                     pygame.image.load("/".join(["enemy", "franky","left", "3.png"])),
-                     pygame.image.load("/".join(["enemy", "franky","left", "4.png"]))],
-            "right": [pygame.image.load("/".join(["enemy", "franky","right", "1.png"])),
-                      pygame.image.load("/".join(["enemy", "franky","right", "2.png"])),
-                      pygame.image.load("/".join(["enemy", "franky","right", "3.png"])),
-                      pygame.image.load("/".join(["enemy", "franky","right", "4.png"]))]
+                    # pygame.image.load("/".join(["enemy", "franky","left", "3.png"])),
+                    # pygame.image.load("/".join(["enemy", "franky","left", "4.png"]))
+                    ],
+            "right": [
+                    #pygame.image.load("/".join(["enemy", "franky","right", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","right", "2.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","right", "3.png"])),
+                    #pygame.image.load("/".join(["enemy", "franky","right", "4.png"]))
+                    ]
             }
             
         self.bat_sprites = {
             "up": [pygame.image.load("/".join(["enemy", "bat","up", "1.png"])),
-                   pygame.image.load("/".join(["enemy", "bat","up" "2.png"])),
-                   pygame.image.load("/".join(["enemy", "bat","up", "3.png"])),
-                   pygame.image.load("/".join(["enemy", "bat","up", "4.png"]))],
+                   #pygame.image.load("/".join(["enemy", "bat","up" "2.png"])),
+                   #pygame.image.load("/".join(["enemy", "bat","up", "3.png"])),
+                   #pygame.image.load("/".join(["enemy", "bat","up", "4.png"]))
+                   ],
             "down": [pygame.image.load("/".join(["enemy", "bat","down", "1.png"])),
-                     pygame.image.load("/".join(["enemy", "bat","down", "2.png"])),
-                     pygame.image.load("/".join(["enemy", "bat","down", "3.png"])),
-                     pygame.image.load("/".join(["enemy", "bat","down", "4.png"]))],
+                     #pygame.image.load("/".join(["enemy", "bat","down", "2.png"])),
+                     #pygame.image.load("/".join(["enemy", "bat","down", "3.png"])),
+                     #pygame.image.load("/".join(["enemy", "bat","down", "4.png"]))
+                     ],
             "left": [pygame.image.load("/".join(["enemy", "bat","left", "1.png"])),
-                     pygame.image.load("/".join(["enemy", "bat","left", "2.png"])),
-                     pygame.image.load("/".join(["enemy", "bat", "left","3.png"])),
-                     pygame.image.load("/".join(["enemy", "bat", "left","4.png"]))],
+                     #pygame.image.load("/".join(["enemy", "bat","left", "2.png"])),
+                     #pygame.image.load("/".join(["enemy", "bat", "left","3.png"])),
+                     #pygame.image.load("/".join(["enemy", "bat", "left","4.png"]))
+                     ],
             "right": [pygame.image.load("/".join(["enemy", "bat","right", "1.png"])),
-                      pygame.image.load("/".join(["enemy", "bat", "right","2.png"])),
-                      pygame.image.load("/".join(["enemy", "bat","right", "3.png"])),
-                      pygame.image.load("/".join(["enemy", "bat","right", "4.png"]))]
+                      #pygame.image.load("/".join(["enemy", "bat", "right","2.png"])),
+                      #pygame.image.load("/".join(["enemy", "bat","right", "3.png"])),
+                      #pygame.image.load("/".join(["enemy", "bat","right", "4.png"]))
+                      ]
         }
         
         self.skeleton_sprites = {
             "up": [pygame.image.load("/".join(["enemy", "skeleton","up", "1.png"])),
                    pygame.image.load("/".join(["enemy", "skeleton","up", "2.png"])),
-                   pygame.image.load("/".join(["enemy", "skeleton","up", "3.png"])),
-                   pygame.image.load("/".join(["enemy", "skeleton","up", "4.png"]))],
+                   #pygame.image.load("/".join(["enemy", "skeleton","up", "3.png"])),
+                   #pygame.image.load("/".join(["enemy", "skeleton","up", "4.png"]))
+                   ],
             "down": [pygame.image.load("/".join(["enemy", "skeleton","down", "1.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","down", "2.png"])),
-                     pygame.image.load("/".join(["enemy", "skeleton","down", "3.png"])),
-                      pygame.image.load("/".join(["enemy", "skeleton","down", "4.png"]))],
-            "left": [pygame.image.load("/".join(["enemy", "skeleton","left", "1.png"])),
+                     #pygame.image.load("/".join(["enemy", "skeleton","down", "3.png"])),
+                    #pygame.image.load("/".join(["enemy", "skeleton","down", "4.png"]))
+                    ],
+            "left": [
+                    #pygame.image.load("/".join(["enemy", "skeleton","left", "1.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","left", "2.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","left", "3.png"])),
-                     pygame.image.load("/".join(["enemy", "skeleton","left", "4.png"]))],
-            "right": [pygame.image.load("/".join(["enemy", "skeleton","right", "1.png"])),
-                      pygame.image.load("/".join(["enemy", "skeleton","right", "2.png"])),
-                      pygame.image.load("/".join(["enemy", "skeleton","right", "3.png"])),
-                      pygame.image.load("/".join(["enemy", "skeleton","right", "4.png"]))]
+                     #pygame.image.load("/".join(["enemy", "skeleton","left", "4.png"]))
+                     ],
+            "right": [
+                    #pygame.image.load("/".join(["enemy", "skeleton","right", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "skeleton","right", "2.png"])),
+                    pygame.image.load("/".join(["enemy", "skeleton","right", "3.png"])),
+                    #pygame.image.load("/".join(["enemy", "skeleton","right", "4.png"]))
+                    ]
         }
-        '''
+        
         self.zombie_sprites = {
             "up": [pygame.image.load("/".join(["enemy", "zombie","up" ,"1.png"])),
                    pygame.image.load("/".join(["enemy", "zombie","up", "2.png"])),
