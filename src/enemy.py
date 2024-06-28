@@ -1,5 +1,6 @@
 import pygame
 import spritesheet
+import math
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
@@ -9,8 +10,8 @@ class Enemy(pygame.sprite.Sprite):
         
         # select the first sprite from the folder "down" and the first sprite
         #
-        self.spritesheet = spritesheet.spritesheet(sprites)
-        self.image = pygame.image.load(sprites).convert_alpha()
+        self.sprites = sprites
+        self.image =self.sprites["down"][0]
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
         self.speed= 100
@@ -21,8 +22,12 @@ class Enemy(pygame.sprite.Sprite):
         self.health= health
         self.sprites = sprites
         self.himmelsrichtung = "down"
+        self.animation_index = 0
         # (64 x 585- 645) * 5
-        
+    
+    
+    
+    
     def move(self,time):
         # genau die gleiche Methode wie bei Player
         target_position = pygame.math.Vector2(self.player_target.rect.center)
@@ -37,8 +42,34 @@ class Enemy(pygame.sprite.Sprite):
     def update(self, time):
         #pass
         self.move(time)
+        self.animate_sprites()
     def animate_sprites(self):
-        pass
+        # if direction is up
+        if self.direction.y < 0:
+            self.himmelsrichtung = "up"
+            self.image = (self.sprites[self.himmelsrichtung][math.floor(self.animation_index)]).convert_alpha()
+            self.animation_index += 0.1
+            if self.animation_index >= len(self.sprites)- 1:
+                self.animation_index = 0
+        if self.direction.y > 0:
+            self.himmelsrichtung = "down"
+            self.image  =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
+            self.animation_index += 0.1
+            if self.animation_index >= len(self.sprites):
+                self.animation_index = 0
+        if self.direction.x < 0:
+            self.himmelsrichtung = "left"
+            self.image =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
+            self.animation_index += 0.1
+            if self.animation_index >= len(self.sprites):
+                self.animation_index = 0
+        if self.direction.x > 0:
+            self.himmelsrichtung = "right"
+            self.image = self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
+            self.animation_index += 0.1
+            if self.animation_index >= len(self.sprites):
+                self.animation_index = 0
+        
     
     def check_collision_with_objects(self, xy):
         for obj in self.collision_objects:
