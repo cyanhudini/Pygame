@@ -11,7 +11,7 @@ class Enemy(pygame.sprite.Sprite):
         # select the first sprite from the folder "down" and the first sprite
         #
         self.sprites = sprites
-        self.image =self.sprites["down"][0]
+        self.image =self.sprites["down"][0] #anfänglicher Sprite
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
         self.speed= 100
@@ -21,8 +21,9 @@ class Enemy(pygame.sprite.Sprite):
         self.collision_objects = collision_objects
         self.health= health
         self.sprites = sprites
-        self.himmelsrichtung = "down"
         self.animation_index = 0
+        self.animation_speed = 0.1
+        
         # (64 x 585- 645) * 5
     
     
@@ -32,6 +33,7 @@ class Enemy(pygame.sprite.Sprite):
         # genau die gleiche Methode wie bei Player
         target_position = pygame.math.Vector2(self.player_target.rect.center)
         self_position = pygame.math.Vector2(self.rect.center)
+                
         self.direction = (target_position - self_position).normalize()
         self.hitbox.x += self.direction.x * self.speed * time
         self.check_collision_with_objects("x")
@@ -48,26 +50,27 @@ class Enemy(pygame.sprite.Sprite):
         if self.direction.y < 0:
             self.himmelsrichtung = "up"
             self.image = (self.sprites[self.himmelsrichtung][math.floor(self.animation_index)]).convert_alpha()
-            self.animation_index += 0.3
+            self.animation_index += self.animation_speed
+            # wie schnell wird die Animation durchgeführt
             if self.animation_index >= len(self.sprites)- 1:
                 self.animation_index = 0
         if self.direction.y > 0:
             self.himmelsrichtung = "down"
-            self.image  =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.3
-            if self.animation_index >= len(self.sprites):
+            self.image =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
+            self.animation_index += self.animation_speed
+            if self.animation_index >= len(self.sprites)-1:
                 self.animation_index = 0
         if self.direction.x < 0:
             self.himmelsrichtung = "left"
             self.image =self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.3
-            if self.animation_index >= len(self.sprites):
+            self.animation_index += self.animation_speed
+            if self.animation_index >= len(self.sprites)-1:
                 self.animation_index = 0
         if self.direction.x > 0:
             self.himmelsrichtung = "right"
             self.image = self.sprites[self.himmelsrichtung][math.floor(self.animation_index)].convert_alpha()
-            self.animation_index += 0.3
-            if self.animation_index >= len(self.sprites):
+            self.animation_index += self.animation_speed
+            if self.animation_index >= len(self.sprites)-1:
                 self.animation_index = 0
         
     

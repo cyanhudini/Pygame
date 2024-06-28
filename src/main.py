@@ -37,27 +37,26 @@ class Survivor:
         self.bullet_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
         self.spawn_points = []
+        self.player_sprites = {}
+        self.bat_sprites = {}
+        self.skeleton_sprites = {}
+        self.zombie_sprites = {}
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
         self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
         self.all_sprites = SpriteGroups()
         self.last_shot = pygame.time.get_ticks()
-        self.setup_map()
+        self.attack_speed_limit = 300 # je höher die Zahl desto niedirger die Frequenz
+        
         # self.load_sprites_to_animate()
-        self.bullet_speed = 40
+        self.bullet_speed = 30
         self.t2 = 0
+        
         self.load_sprites_to_animate()
-        self.player_sprites = {}
-        self.bat_sprites = {}
-        self.skeleton_sprites = {}
-        self.zombie_sprites = {}
+        self.setup_map()
         #self.load_animation_sprites_walking_direction()
-        self.spawn_rate = {
-            "bat": (0, 0.4),
-            "zombie": (0.4,0.75),
-            "skeleton": (0.75, 0.9),
-        }
+     
     def shoot_bullet(self):
         position = self.player.rect.center
         #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
@@ -73,23 +72,30 @@ class Survivor:
         
     def load_sprites_to_animate(self):
         # keine schöne Lösung, aber es funktioniert
-        '''
+        
         self.player_sprites = {
             
-            "up": [pygame.image.load("/".join(["player", "walking","up", "1.png"])),
-                   pygame.image.load("/".join(["player", "walking","up", "2.png"])),
-                   pygame.image.load("/".join(["player", "walking","up", "3.png"]))],
-            "down": [pygame.image.load("/".join(["player", "walking","up", "1.png"])),
-                     pygame.image.load("/".join(["player", "walking","down", "2.png"])),
-                     pygame.image.load("/".join(["player", "walking","down", "3.png"]))],
-            "left": [pygame.image.load("/".join(["player", "walking","left", "1.png"])),
-                     pygame.image.load("/".join(["player", "walking","left", "2.png"])),
-                     pygame.image.load("/".join(["player", "walking","left" "3.png"]))],
-            "right": [pygame.image.load("/".join(["player", "walking","right", "1.png"])),
-                      pygame.image.load("/".join(["player", "walking","right", "2.png"])),
-                      pygame.image.load("/".join(["player", "walking","right", "3.png"]))]
+            "up": [
+                    pygame.image.load("/".join(["player", "up", "1.png"])),
+                    pygame.image.load("/".join(["player", "up", "2.png"])),
+                    #pygame.image.load("/".join(["player", "up", "3.png"]))
+                   ],
+            "down": [
+                    pygame.image.load("/".join(["player", "up", "1.png"])),
+                    pygame.image.load("/".join(["player", "down", "2.png"])),
+                    #pygame.image.load("/".join(["player", "down", "3.png"]))
+                     ],
+            "left": [
+                    #pygame.image.load("/".join(["player", "left", "1.png"])),
+                    pygame.image.load("/".join(["player", "left", "2.png"])),
+                     #pygame.image.load("/".join(["player", "left" "3.png"]))
+                     ],
+            "right": [
+                    #pygame.image.load("/".join(["player", "right", "1.png"])),
+                    pygame.image.load("/".join(["player", "right", "2.png"])),
+                    pygame.image.load("/".join(["player", "right", "3.png"]))]
         }
-        '''
+        
         ''' self.franky = {
             "up": [pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
                    pygame.image.load("/".join(["enemy", "franky","up", "2.png"])),
@@ -205,7 +211,7 @@ class Survivor:
         
         for obj in map_path.get_layer_by_name("Objektebene 1"):
             if obj.name == "Spawn_Player":
-                self.player = Player(self.player_path, self.all_sprites, self.collision_sprites, (obj.x, obj.y), ) 
+                self.player = Player(self.player_sprites, self.all_sprites, self.collision_sprites, (obj.x, obj.y), ) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
                 
@@ -301,8 +307,8 @@ class Survivor:
         # die Clock bzw. der tick beeinflusst die Uhr -> Bug
         self.t1 = pygame.time.get_ticks()
         t_delta = self.t1 - self.t2
-        print("t_delta: ", t_delta)
-        if t_delta >= 150:
+        
+        if t_delta >= self.attack_speed_limit:
             self.shoot_bullet()
             self.t2 = self.t1
        
@@ -335,7 +341,7 @@ class Survivor:
     
     
     def run(self):
-        self.load_sprites_to_animate()
+        #self.load_sprites_to_animate()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
