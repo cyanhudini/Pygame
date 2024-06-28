@@ -36,6 +36,7 @@ class Survivor:
         self.bat_sprites = {}
         self.skeleton_sprites = {}
         self.zombie_sprites = {}
+        self.franky_sprites = {}
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
         self.player_can_be_hit = True
@@ -45,7 +46,7 @@ class Survivor:
         self.last_shot = pygame.time.get_ticks()
         
         # Variablen zum Ändern
-        self.attack_speed_limit = 30000 # je höher die Zahl desto niedirger die Frequenz
+        self.attack_speed_limit = 300 # je höher die Zahl desto niedirger die Frequenz
         self.bullet_speed = 30
         self.t2 = 0
         self.t4 = 0
@@ -98,7 +99,7 @@ class Survivor:
                     ]
         }
         
-        self.franky = {
+        self.franky_sprites = {
             "up":[
                  #   pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
                     pygame.image.load("/".join(["enemy", "franky","up", "2.png"])),
@@ -108,10 +109,10 @@ class Survivor:
             "down":[
                     #pygame.image.load("/".join(["enemy", "franky","down", "1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","down", "2.png"])),
-                     pygame.image.load("/".join(["enemy", "franky","down" "3.png"])),
+                     pygame.image.load("/".join(["enemy", "franky","down", "3.png"])),
                    # pygame.image.load("/".join(["enemy", "franky","down" "4.png"]))
                      ],
-            "left": [pygame.image.load("/".join(["enemy", "franky","left" "1.png"])),
+            "left": [pygame.image.load("/".join(["enemy", "franky","left" ,"1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","left", "2.png"])),
                     # pygame.image.load("/".join(["enemy", "franky","left", "3.png"])),
                     # pygame.image.load("/".join(["enemy", "franky","left", "4.png"]))
@@ -265,7 +266,7 @@ class Survivor:
         limit = random.random()
         if limit < spawn_chance_world:
             random_enemy_type = self.set_enemy_flag()
-            random_enemy_type = 2
+            #random_enemy_type = 2
             match random_enemy_type:
                 case 1:
                     Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, self.bat_sprites)
