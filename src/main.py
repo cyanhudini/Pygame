@@ -12,6 +12,11 @@ from enemy import Enemy
 from health_bar import HealthBar
 from pytmx.util_pygame import load_pygame
 from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
+
+
+# Todo; fix das Anvisieren, mehr Schaden am SPieler o. weniger Leben
+# Todo: andere shootng Modes, Health Bar
+# Todo:
 class Survivor:
     def __init__(self):
 
