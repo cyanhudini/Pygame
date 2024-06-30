@@ -393,6 +393,11 @@ class Survivor:
                 possible_upgrades.append(upgrade)
         return possible_upgrades
     
+    def remove_upgrade_cards(self):
+        for upgrade in self.upgrade_card_sprites:
+                upgrade.kill()
+        self.paused = False
+    
     def run(self):
         #self.load_sprites_to_animate()
         while True:
@@ -403,22 +408,19 @@ class Survivor:
                 if event.type == pygame.KEYDOWN and self.paused == True:
                     
                     if event.key == pygame.K_1:
-                        self.upgrade_card_sprites.sprites()[1].is_clicked(self.player)
+                        self.upgrade_card_sprites.sprites()[0].is_clicked(self.player)
                         #t = self.upgrade_card_sprites.sprites()[1]
                         #self.paused = False
+                        self.remove_upgrade_cards()
                         
                     if event.key == pygame.K_2:
+                        self.upgrade_card_sprites.sprites()[1].is_clicked(self.player)
+                        #self.paused = False
+                        self.remove_upgrade_cards()
+                    if event.key == pygame.K_3:
                         self.upgrade_card_sprites.sprites()[2].is_clicked(self.player)
                         #self.paused = False
-                    if event.key == pygame.K_3:
-                        self.upgrade_card_sprites.sprites()[3].is_clicked(self.player)
-                        #self.paused = False
-                    else:
-                        pass
-                    
-                for upgrade in self.upgrade_card_sprites:
-                    upgrade.kill()
-                self.paused = False
+                        self.remove_upgrade_cards()              
              
                     
                     

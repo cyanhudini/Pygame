@@ -18,8 +18,11 @@ class Upgrade(pygame.sprite.Sprite):
         match self.upgrade_type:
             case "health":
                 player.current_health += 10
+                print("health Upgrade")
             case "defense":
                 player.amount_defense_upgrade += 1
+                print("defense Upgrade")
             case "dmg":
                 player.damage_multiplier += 0.1
+                print("damage Upgrade")
             
