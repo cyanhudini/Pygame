@@ -16,8 +16,9 @@ class HealthBar(pygame.sprite.Sprite):
         
         
     def draw_health_bar(self):
-        pygame.draw.rect(self.image, "red", (0, 0,self.healthbar_length ,self.healthbar_height))
+        pygame.draw.rect(self.image, "red", (0, 0,self.healthbar_length ,self.healthbar_height))     
         pygame.draw.rect(self.image, "green", (0, 0, self.healthbar_length * self.current_health / self.max_health, self.healthbar_height))
+    
     def update(self, time):
         self.draw_health_bar()
         

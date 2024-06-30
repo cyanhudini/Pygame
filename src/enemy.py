@@ -1,5 +1,5 @@
 import pygame
-import spritesheet
+
 import math
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut

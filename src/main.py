@@ -60,16 +60,13 @@ class Survivor:
         self.setup_map()
         (self.player_health, self.player_max_health) = self.player.current_health, self.player.max_health
         HealthBar((self.player_health, self.player_max_health), self.all_sprites)
-     
+    
+    
     def shoot_bullet(self):
         position = self.player.rect.center
-        #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
-        #self.bullet_direction = direction
-        #print("position: ", position, "direction: ", self.bullet_direction)
-        direction = pygame.Vector2(1,0)
-        if self.player.direction.x > 0 and self.player.direction.y > 0:
-            direction = self.player.direction
-        direction = direction.normalize() * self.bullet_speed
+        
+        
+        direction = self.bullet_direction.normalize() * self.bullet_speed
         # print("position: ", position, "direction: ", direction)
         Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
 
@@ -336,9 +333,10 @@ class Survivor:
     def check_closest_enemy(self):
         threshold_distance = 200
         for enemy in self.enemy_sprites:
-            distance = math.sqrt((self.player.rect.centerx - enemy.rect.centerx) ** 2 + (self.player.rect.centery - enemy.rect.centery) ** 2)
-            if distance < threshold_distance:
-                self.bullet_direction = pygame.Vector2(enemy.rect.center) - pygame.Vector2(self.player.rect.center)
+            distance = math.sqrt((self.player.hitbox.centerx - enemy.hitbox.centerx) ** 2 + (self.player.hitbox.centery - enemy.hitbox.centery) ** 2)
+            if distance <= threshold_distance:
+                print("enemy in range")
+                self.bullet_direction = pygame.Vector2(enemy.hitbox.center) - pygame.Vector2(self.player.hitbox.center)
                 break
                 
     def spawn_enemy(self):

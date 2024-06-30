@@ -23,8 +23,15 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 0.1
         self.hitbox = self.rect.inflate(-10, -10)
         self.shooting_mode = "single"
-        self.max_health = 1000
+        self.max_health = 100
         self.current_health = self.max_health
+        self.healthbar_length = 100
+        self.healthbar_height = 10
+        
+    
+        self.health_bar_image = pygame.Surface((50, 50))
+        self.health_bar_image.fill((255, 0, 0))
+        self.rect = self.health_bar_image.get_rect(center=(400, 600))
 
   
     def getInput(self):
@@ -68,6 +75,9 @@ class Player(pygame.sprite.Sprite):
             self.animation_index += self.animation_speed
             if self.animation_index >= len(current_animation_sprite)-1:
                 self.animation_index = 0
+    def draw_health_bar(self):
+        pygame.draw.rect(self.image, "red", (0, 0,self.healthbar_length ,self.healthbar_height))     
+        pygame.draw.rect(self.image, "green", (0, 0, self.healthbar_length * self.current_health / self.max_health, self.healthbar_height))
     
     def update(self, time):
         self.getInput()
@@ -75,6 +85,7 @@ class Player(pygame.sprite.Sprite):
         self.animate_sprites()
         # self.check_hitbox_of_player_with_objects()
         self.rect.center += self.direction * self.speed * time
+        self.draw_health_bar()
 
     def check_hitbox_of_player_with_objects(self, xy):
         # check whether player collides with objects
