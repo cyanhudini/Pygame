@@ -305,7 +305,11 @@ class Survivor:
         '''
         t = pygame.time.get_ticks()
         #print("ingame ticks: ", t)
-        spawn_chance_world = (0.25/(0.15*((t/1000)*60) + 1)) # https://riskofrain2.fandom.com/wiki/Tougher_Times
+        spawn_chance_world = (0.25/(0.15*((t/1000)*60) + 1))
+        # https://riskofrain2.fandom.com/wiki/Tougher_Times
+        # je länger das Spiel dauert, desto höher die Spawnchance
+        # erhöhe den Zähler um die Spawn Chance zu erhöhen
+        
         limit = random.random()
         if limit < spawn_chance_world:
             random_enemy_type = self.set_enemy_flag()
