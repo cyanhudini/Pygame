@@ -38,6 +38,8 @@ class Survivor:
         self.skeleton_sprites = {}
         self.zombie_sprites = {}
         self.franky_sprites = {}
+        self.upgrade_card_sprites = {}
+        self.upgrade_types = ["dmg", "defense", "health"]
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
         self.player_can_be_hit = True
@@ -55,7 +57,7 @@ class Survivor:
         
         self.load_sprites_to_animate()
         self.setup_map()
-        Upgrade((self.all_sprites), self.player.pos)
+        Upgrade((self.all_sprites), self.player.pos,"dmg", self.upgrade_card_sprites)
        
        
         self.paused = False
@@ -83,7 +85,12 @@ class Survivor:
 
     def load_sprites_to_animate(self):
         # keine schöne Lösung, aber es funktioniert
+        self.upgrade_card_sprites = {
+            "dmg": ("/".join(["player", "upgrade", "upgrade_dmg.png"])),
+            "defense": ("/".join(["player", "upgrade", "upgrade_defense.png"])),
+            "health": ("/".join(["player", "upgrade", "upgrade_health.png"]))
 
+        }
         
         self.player_sprites = {
             
@@ -246,15 +253,18 @@ class Survivor:
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
         
-     
+   
+    
     def trigger_upgrade_event(self):
         # if player level up, player can choose between three different upgrades
         print("main is level up: ", self.player.is_level_up)
         if self.player.is_level_up == True:
+            upgrades = self.determine_upgrade_type()
             print("Player leveled up")
             for i in range(3):
+                
                 position = (self.player.pos[0] + 170 * i, self.player.pos[1]) - pygame.Vector2(170, 0)
-                Upgrade((self.all_sprites), position)
+                Upgrade((self.all_sprites), position, upgrades[i], self.upgrade_card_sprites)
             self.paused = True
      
     def set_enemy_flag(self):
@@ -373,6 +383,12 @@ class Survivor:
             
             Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, path_mino)
     
+    def determine_upgrade_type(self):
+        possible_upgrades = []
+        for upgrade in self.upgrade_types:
+            if upgrade not in possible_upgrades:
+                possible_upgrades.append(upgrade)
+        return possible_upgrades
     
     def run(self):
         #self.load_sprites_to_animate()
@@ -382,7 +398,7 @@ class Survivor:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN and self.paused == True:
-                    self.paused = False
+                    mouse_position = pygame.mouse.get_pos()
                     
             print(self.player.pos[0], self.player.pos[1])
             #player_camera.update(player, map_size_x, map_size_y)
