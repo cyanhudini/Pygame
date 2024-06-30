@@ -62,7 +62,7 @@ class Survivor:
         
         self.load_sprites_to_animate()
         self.setup_map()
-        Upgrade((self.all_sprites,self.upgrade_card_sprites), self.player.pos,"dmg", self.card_sprites)
+        # Upgrade((self.all_sprites,self.upgrade_card_sprites), self.player.pos,"dmg", self.card_sprites)
        
        
         self.paused = False
