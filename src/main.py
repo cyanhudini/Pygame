@@ -271,6 +271,7 @@ class Survivor:
                 position = (self.player.pos[0] + 170 * i, self.player.pos[1]) - pygame.Vector2(170, 0)
                 Upgrade((self.all_sprites, self.upgrade_card_sprites), position, upgrades[i], self.card_sprites)
             self.paused = True
+            self.player.is_level_up = False
      
     def set_enemy_flag(self):
         spawn_indikator = random.randint(0,1)
@@ -402,20 +403,15 @@ class Survivor:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN and self.paused == True:
-                    mouse_position = pygame.mouse.get_pos()
-                    print("Mouse position: ", mouse_position)
-                    # check if mouse position is on upgrade card
-                    for card in self.upgrade_card_sprites:
-                        print("Card rect: ", card.rect.topleft)
-                        print("Mouse position: ", mouse_position)
-                        print(card.rect.collidepoint(event.pos))
-                        if card.is_clicked(mouse_position):
-                            print("Upgrade chosen")
-                            card.kill()
-                            self.paused = False
-                            self.player.is_level_up = False
-                            break
+                if event.type == pygame.KEYDOWN and self.paused == True:
+                    
+                    if event.key == pygame.K_1:
+                        self.upgrade_card_sprites.sprites()[1].is_clicked()
+                    if event.key == pygame.K_2:
+                        self.upgrade_card_sprites.sprites()[2].is_clicked()
+                    if event.key == pygame.K_3:
+                        self.upgrade_card_sprites.sprites()[3].is_clicked()
+                    
                                         
             #player_camera.update(player, map_size_x, map_size_y)
             #self.health_bar.draw()
