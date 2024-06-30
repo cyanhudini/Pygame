@@ -413,6 +413,8 @@ class Survivor:
                     if event.key == pygame.K_3:
                         self.upgrade_card_sprites.sprites()[3].is_clicked(self.player)
                         #self.paused = False
+                    else:
+                        pass
                     
                 for upgrade in self.upgrade_card_sprites:
                     upgrade.kill()
