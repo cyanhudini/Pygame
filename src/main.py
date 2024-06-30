@@ -58,8 +58,19 @@ class Survivor:
         
         self.load_sprites_to_animate()
         self.setup_map()
-        (self.player_health, self.player_max_health) = self.player.current_health, self.player.max_health
-        HealthBar((self.player_health, self.player_max_health), self.all_sprites)
+       
+    
+    def shoot_bullet(self):
+        position = self.player.rect.center
+        #direction = self.player.direction if (not self.player.direction.x == 0 and not self.player.direction.y == 0) else self.bullet_direction
+        #self.bullet_direction = direction
+        #print("position: ", position, "direction: ", self.bullet_direction)
+        direction = pygame.Vector2(1,0)
+        if self.player.direction.x > 0 and self.player.direction.y > 0:
+            direction = self.player.direction
+        direction = direction.normalize() * self.bullet_speed
+        # print("position: ", position, "direction: ", direction)
+        Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
     
     
     def shoot_bullet(self):

@@ -23,7 +23,7 @@ class Enemy(pygame.sprite.Sprite):
         self.himmelsrichtung = "down"
         self.sprites = sprites
         self.animation_index = 0
-        self.animation_speed = 0.1
+        self.animation_speed = 0.06
         
         # (64 x 585- 645) * 5
     
