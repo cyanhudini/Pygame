@@ -36,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.total_exp = 0
         self.level = 1
         self.exp_progression_formula = self.total_exp * (1 + (self.level ** 0.5)) 
-        self.base_experience_threshold = 100 
+        self.base_experience_threshold = 70
         self.exp_threshold_factor = 1.8
         self.is_level_up = False
         
@@ -99,7 +99,8 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, "blue", (0, 5, (self.status_bar_width * self.exp_to_level / self.base_experience_threshold), self.status_bar_height))
     def gain_exp(self, experience):
         self.total_exp += experience
-        self.exp_to_level += self.total_exp
+        self.exp_to_level += experience
+        
         self.level_up()
     def level_up(self):
         
@@ -107,13 +108,18 @@ class Player(pygame.sprite.Sprite):
         # oder vorherige_exp_grenze * Level * Faktor (1.1)
         # dazu muss es mehr Gegner geben über Zeit
         # mit jedem Level up soll es Upgrades geben
-        
+
+       
         if self.exp_to_level >= self.base_experience_threshold:
-            self.base_experience_threshold = self.base_experience_threshold * self.exp_threshold_factor * self.level + self.total_exp
-            
+           
+            self.base_experience_threshold = self.total_exp * self.exp_threshold_factor
+            print("diff", self.base_experience_threshold - self.total_exp)
+            print("threshold", self.base_experience_threshold)
+            print("exp to level", self.exp_to_level)
+           
             self.exp_to_level = 0
             self.level += 1
-            
+            print("Level up")
             self.is_level_up = True   
             
         

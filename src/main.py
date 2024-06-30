@@ -52,7 +52,7 @@ class Survivor:
         self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
         
-        self.last_shot = pygame.time.get_ticks()
+        self.game_ticks = pygame.time.get_ticks()
         
         # Variablen zum Ändern
         self.attack_speed_limit = 300 # je höher die Zahl desto niedirger die Frequenz
@@ -73,8 +73,8 @@ class Survivor:
         #self.bullet_direction = direction
         #print("position: ", position, "direction: ", self.bullet_direction)
         direction = pygame.Vector2(1,0)
-        if self.player.direction.x > 0 and self.player.direction.y > 0:
-            direction = self.player.direction
+        if self.player.direction.x == 0 and self.player.direction.y == 0:
+            direction = self.bullet_direction
         direction = direction.normalize() * self.bullet_speed
         # print("position: ", position, "direction: ", direction)
         Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
@@ -303,12 +303,14 @@ class Survivor:
         Skeleton: 0.75 - 0.9
         Franky: 0.9 - 1
         '''
-        
-        spawn_chance_world = 0.5
+        t = pygame.time.get_ticks()
+        #print("ingame ticks: ", t)
+        spawn_chance_world = (0.25/(0.15*((t/1000)*60) + 1)) # https://riskofrain2.fandom.com/wiki/Tougher_Times
         limit = random.random()
         if limit < spawn_chance_world:
             random_enemy_type = self.set_enemy_flag()
-            random_enemy_type = 1
+            print("Enemy spawned")
+            #random_enemy_type = 1
             match random_enemy_type:
                 case 1:
                     Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, 10, 2, self.goblin_sprites)
@@ -340,8 +342,8 @@ class Survivor:
         #if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
                 if self.player_can_be_hit:
                     total_damage = enemy.damage * (0.9589) ** self.player.amount_defense_upgrade
-                    print("Total damage: ", total_damage)
-                    print("Player health: ", self.player.current_health)
+                    #print("Total damage: ", total_damage)
+                    #print("Player health: ", self.player.current_health)
                     self.player.current_health -= total_damage
                     # https://riskofrain2.fandom.com/wiki/Alien_Head
                     #The skill cooldown is determined by the formula cooldown ⋅ 0.75 ^ amount
@@ -378,7 +380,7 @@ class Survivor:
        
     
     def check_closest_enemy(self):
-        threshold_distance = 200
+        threshold_distance = 290
         for enemy in self.enemy_sprites:
             distance = math.sqrt((self.player.hitbox.centerx - enemy.hitbox.centerx) ** 2 + (self.player.hitbox.centery - enemy.hitbox.centery) ** 2)
             if distance <= threshold_distance:
