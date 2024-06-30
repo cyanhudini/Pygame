@@ -8,6 +8,16 @@ class Upgrade(pygame.sprite.Sprite):
         self.image =  pygame.image.load("/".join(["player", "upgrade", "upgrade_dmg.png"]))
         self.rect = self.image.get_rect(center=self.card_position)
 
+        self.possible_upgrades = {
+            "dmg": 0.1,
+            "defense": 0.1,
+            "health": 10
+        }
+        
     def update(self, time):
         pass
+    def is_upgrade_chosen(self):
+        
+        pass
+    
     

@@ -242,7 +242,7 @@ class Survivor:
             
         for obj in map_path.get_layer_by_name("Objektebene 1"):
             if obj.name == "Spawn_Player":
-                self.player = Player(self.player_sprites, self.all_sprites, self.collision_sprites, (obj.x, obj.y), 1000 ) 
+                self.player = Player(self.player_sprites, self.all_sprites, self.collision_sprites, (obj.x, obj.y), 1000) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
         
@@ -252,8 +252,9 @@ class Survivor:
         print("main is level up: ", self.player.is_level_up)
         if self.player.is_level_up == True:
             print("Player leveled up")
-            
-            Upgrade((self.all_sprites), self.player.pos)
+            for i in range(3):
+                position = (self.player.pos[0] + 170 * i, self.player.pos[1]) - pygame.Vector2(170, 0)
+                Upgrade((self.all_sprites), position)
             self.paused = True
      
     def set_enemy_flag(self):
@@ -380,6 +381,9 @@ class Survivor:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.paused == True:
+                    self.paused = False
+                    
             print(self.player.pos[0], self.player.pos[1])
             #player_camera.update(player, map_size_x, map_size_y)
             #self.health_bar.draw()

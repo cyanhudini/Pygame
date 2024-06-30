@@ -6,10 +6,6 @@ class Player(pygame.sprite.Sprite):
         # wie z.B. update()
         
         super().__init__(groups)
-        # draw player as a simple red rectangle
-        # self.image = pygame.Surface((50, 50))
-        # self.image.fill((255, 0, 0))
-        
         self.pos = pos
         self.player_sprites = player_sprites
         self.image = self.player_sprites["down"][0]
@@ -59,7 +55,7 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * self.speed * time
         self.check_hitbox_of_player_with_objects("y")
         self.rect.center = self.hitbox.center
-        self.pos = self.rect.center
+        self.pos = self.rect.topleft
     
     def animate_sprites(self):
         current_animation_sprite = (self.player_sprites[self.himmelsrichtung])
