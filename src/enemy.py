@@ -4,7 +4,7 @@ import math
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
-    def __init__(self,pos, groups, player, collision_objects, health, experience_on_death, sprites):
+    def __init__(self,pos, groups, player, collision_objects, health, experience_on_death,damage, sprites):
         super().__init__(groups)
         self.groups = groups        
         
@@ -17,6 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
         self.speed= 100
+        self.damage = damage
         self.direction = pygame.math.Vector2()
         # verkleinere die Hitbox um 10 Pixel
         self.hitbox = self.rect.inflate(-10, -10)

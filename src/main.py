@@ -102,26 +102,29 @@ class Survivor:
             "up": [
                     pygame.image.load("/".join(["player", "up", "1.png"])),
                     pygame.image.load("/".join(["player", "up", "2.png"])),
-                    #pygame.image.load("/".join(["player", "up", "3.png"])),
-                    #pygame.image.load("/".join(["player", "up", "4.png"]))
+                    pygame.image.load("/".join(["player", "up", "3.png"])),
+                    pygame.image.load("/".join(["player", "up", "4.png"]))
                    ],
             "down": [
-                    pygame.image.load("/".join(["player", "up", "1.png"])),
+                    pygame.image.load("/".join(["player", "down", "1.png"])),
                     pygame.image.load("/".join(["player", "down", "2.png"])),
-                    #pygame.image.load("/".join(["player", "down", "3.png"])),
-                    #pygame.image.load("/".join(["player", "down", "4.png"]))
+                    pygame.image.load("/".join(["player", "down", "25.png"])),
+                    pygame.image.load("/".join(["player", "down", "3.png"])),
+                    pygame.image.load("/".join(["player", "down", "4.png"]))
                      ],
             "left": [
-                    #pygame.image.load("/".join(["player", "left", "1.png"])),
+                    pygame.image.load("/".join(["player", "left", "1.png"])),
                     pygame.image.load("/".join(["player", "left", "2.png"])),
-                    #pygame.image.load("/".join(["player", "left" "3.png"])),
-                    #pygame.image.load("/".join(["player", "left" "4.png"]))
+                    pygame.image.load("/".join(["player", "left", "3.png"])),
+                    pygame.image.load("/".join(["player", "left" ,"4.png"]))
                      ],
             "right": [
                     #pygame.image.load("/".join(["player", "right", "1.png"])),
                     pygame.image.load("/".join(["player", "right", "2.png"])),
                     pygame.image.load("/".join(["player", "right", "3.png"])),
-                    #pygame.image.load("/".join(["player", "right", "4.png"])),
+                    pygame.image.load("/".join(["player", "right", "4.png"])),
+                    pygame.image.load("/".join(["player", "right", "5.png"])),
+                    pygame.image.load("/".join(["player", "right", "6.png"])),
                     ]
         }
         
@@ -308,13 +311,13 @@ class Survivor:
             random_enemy_type = 1
             match random_enemy_type:
                 case 1:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, 10, self.goblin_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, 10, 2, self.goblin_sprites)
                 case 2:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, 40, self.zombie_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, 40, 7, self.zombie_sprites)
                 case 3:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, 80, self.skeleton_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, 80, 15 ,self.skeleton_sprites)
                 case 4:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 350,140, self.franky_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 350,140, 33, self.franky_sprites)
                     
     def can_player_take_damage(self):
         # wenn Spieler Schaden nimmt, kann dieser für eine bestimmte Zeit nicht
@@ -332,11 +335,17 @@ class Survivor:
     def check_player_collision_with_enemy(self):
         # check if player collides with enemy
         self.can_player_take_damage()
-        if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
-            if self.player_can_be_hit:
-                self.player.current_health -= 10
-                
-                self.player_can_be_hit = False
+        for enemy in self.enemy_sprites:
+            if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
+        #if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
+                if self.player_can_be_hit:
+                    total_damage = enemy.damage * (0.9589) ** self.player.amount_defense_upgrade
+                    print("Total damage: ", total_damage)
+                    print("Player health: ", self.player.current_health)
+                    self.player.current_health -= total_damage
+                    # https://riskofrain2.fandom.com/wiki/Alien_Head
+                    #The skill cooldown is determined by the formula cooldown ⋅ 0.75 ^ amount
+                    self.player_can_be_hit = False
 
     
         
@@ -348,7 +357,7 @@ class Survivor:
                     #print("Bullet collided with enemy")
                     #gleiche Logik wie bei Bullet
                     for hit_enemy in hit_sprite:
-                        hit_enemy.health -= 10
+                        hit_enemy.health -= 10 * self.player.damage_multiplier
                         # print("Enemy health: ", hit_enemy.health)
                         if hit_enemy.health <= 0:
                           
@@ -377,18 +386,6 @@ class Survivor:
                 self.bullet_direction = pygame.Vector2(enemy.hitbox.center) - pygame.Vector2(self.player.hitbox.center)
                 break
                 
-    def spawn_enemy(self):
-        # spawn enemies in random intervals
-        # generate a random float between 0 and 1
-        
-        spawn_chance = 0.01
-        limit = random.random()
-        if limit < spawn_chance:
-            random_spawn_point = random.randint(0, len(self.spawn_points) - 1)
-            path_mino = "/".join(["enemy", "1","down", "2.png"])
-            
-            Enemy(self.spawn_points[random_spawn_point], (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 100, path_mino)
-    
     def determine_upgrade_type(self):
         possible_upgrades = []
         for upgrade in self.upgrade_types:
@@ -407,17 +404,20 @@ class Survivor:
                     
                     if event.key == pygame.K_1:
                         self.upgrade_card_sprites.sprites()[1].is_clicked(self.player)
-                        self.paused = False
+                        #t = self.upgrade_card_sprites.sprites()[1]
+                        #self.paused = False
                         
-                    elif event.key == pygame.K_2:
+                    if event.key == pygame.K_2:
                         self.upgrade_card_sprites.sprites()[2].is_clicked(self.player)
-                        self.paused = False
-                    elif event.key == pygame.K_3:
+                        #self.paused = False
+                    if event.key == pygame.K_3:
                         self.upgrade_card_sprites.sprites()[3].is_clicked(self.player)
-                        self.paused = False
+                        #self.paused = False
                     
                 for upgrade in self.upgrade_card_sprites:
                     upgrade.kill()
+                self.paused = False
+             
                     
                     
                                         

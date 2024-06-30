@@ -19,7 +19,7 @@ class Upgrade(pygame.sprite.Sprite):
             case "health":
                 player.current_health += 10
             case "defense":
-                player.defense_mutliplier += 0.1
+                player.amount_defense_upgrade += 1
             case "dmg":
                 player.damage_multiplier += 0.1
             

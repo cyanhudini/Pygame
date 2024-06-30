@@ -17,14 +17,15 @@ class Player(pygame.sprite.Sprite):
         self.speed = 500
         self.collision_objects = collision_objects
         self.animation_index = 0
-        self.animation_speed = 0.1
+        self.animation_speed = 0.15
         self.hitbox = self.rect.inflate(-10, -10)
         self.shooting_mode = "single"
         
         # damage
         self.damage_multiplier = 1
+        self.base_damage = 10
         
-        self.defense_mutliplier = 1
+        self.amount_defense_upgrade = 0
         
         # HEALTH
         self.max_health = 100
@@ -108,7 +109,7 @@ class Player(pygame.sprite.Sprite):
         # mit jedem Level up soll es Upgrades geben
         
         if self.exp_to_level >= self.base_experience_threshold:
-            self.base_experience_threshold = self.base_experience_threshold * self.exp_threshold_factor + self.total_exp
+            self.base_experience_threshold = self.base_experience_threshold * self.exp_threshold_factor * self.level + self.total_exp
             
             self.exp_to_level = 0
             self.level += 1
