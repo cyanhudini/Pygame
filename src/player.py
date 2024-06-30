@@ -21,6 +21,11 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(-10, -10)
         self.shooting_mode = "single"
         
+        # damage
+        self.damage_multiplier = 1
+        
+        self.defense_mutliplier = 1
+        
         # HEALTH
         self.max_health = 100
         self.current_health = self.max_health

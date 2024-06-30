@@ -10,15 +10,16 @@ class Upgrade(pygame.sprite.Sprite):
         self.upgrade_type = upgrade_type
         
         
+        
     def update(self, time):
         pass
 
-    def is_clicked(self ):
+    def is_clicked(self, player ):
         match self.upgrade_type:
             case "health":
-                print("Health clicked")
+                player.current_health += 10
             case "defense":
-                print("Defense clicked")
+                player.defense_mutliplier += 0.1
             case "dmg":
-                print("Damage clicked")
+                player.damage_multiplier += 0.1
             

@@ -406,11 +406,19 @@ class Survivor:
                 if event.type == pygame.KEYDOWN and self.paused == True:
                     
                     if event.key == pygame.K_1:
-                        self.upgrade_card_sprites.sprites()[1].is_clicked()
-                    if event.key == pygame.K_2:
-                        self.upgrade_card_sprites.sprites()[2].is_clicked()
-                    if event.key == pygame.K_3:
-                        self.upgrade_card_sprites.sprites()[3].is_clicked()
+                        self.upgrade_card_sprites.sprites()[1].is_clicked(self.player)
+                        self.paused = False
+                        
+                    elif event.key == pygame.K_2:
+                        self.upgrade_card_sprites.sprites()[2].is_clicked(self.player)
+                        self.paused = False
+                    elif event.key == pygame.K_3:
+                        self.upgrade_card_sprites.sprites()[3].is_clicked(self.player)
+                        self.paused = False
+                    
+                for upgrade in self.upgrade_card_sprites:
+                    upgrade.kill()
+                    
                     
                                         
             #player_camera.update(player, map_size_x, map_size_y)
