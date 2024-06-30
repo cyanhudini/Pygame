@@ -29,35 +29,40 @@ class Survivor:
         
         
         # die Gruppen tragen dazu bei das wir anhand dieser Zuordnung die Sprites anders behandeln können (objektorient)
+        #Sprite Groups
         self.enemy_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
+        self.upgrade_card_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
+        self.all_sprites = SpriteGroups()
+        
         self.spawn_points = []
+        self.upgrade_types = ["dmg", "defense", "health"]
+        
         self.player_sprites = {}
         self.goblin_sprites = {}
         self.skeleton_sprites = {}
         self.zombie_sprites = {}
         self.franky_sprites = {}
-        self.upgrade_card_sprites = {}
-        self.upgrade_types = ["dmg", "defense", "health"]
+        self.card_sprites = {}
+        
         #Liste von Bildpfaden
         #player_camera = Camera(screen_width, screen_height)
         self.player_can_be_hit = True
         self.bullet_direction = pygame.Vector2(1, 0)
         self.clock = pygame.time.Clock()
-        self.all_sprites = SpriteGroups()
-        self.last_shot = pygame.time.get_ticks()
         
+        self.last_shot = pygame.time.get_ticks()
         
         # Variablen zum Ändern
         self.attack_speed_limit = 300 # je höher die Zahl desto niedirger die Frequenz
-        self.bullet_speed = 20
+        self.bullet_speed = 29
         self.t2 = 0
         self.t4 = 0
         
         self.load_sprites_to_animate()
         self.setup_map()
-        Upgrade((self.all_sprites), self.player.pos,"dmg", self.upgrade_card_sprites)
+        Upgrade((self.all_sprites,self.upgrade_card_sprites), self.player.pos,"dmg", self.card_sprites)
        
        
         self.paused = False
@@ -85,7 +90,7 @@ class Survivor:
 
     def load_sprites_to_animate(self):
         # keine schöne Lösung, aber es funktioniert
-        self.upgrade_card_sprites = {
+        self.card_sprites = {
             "dmg": ("/".join(["player", "upgrade", "upgrade_dmg.png"])),
             "defense": ("/".join(["player", "upgrade", "upgrade_defense.png"])),
             "health": ("/".join(["player", "upgrade", "upgrade_health.png"]))
@@ -257,14 +262,14 @@ class Survivor:
     
     def trigger_upgrade_event(self):
         # if player level up, player can choose between three different upgrades
-        print("main is level up: ", self.player.is_level_up)
+      
         if self.player.is_level_up == True:
             upgrades = self.determine_upgrade_type()
-            print("Player leveled up")
+        
             for i in range(3):
-                
+                # damit die Karte von links nach rechts gerendert werden und nicht außerhalb des Bildschirms sind
                 position = (self.player.pos[0] + 170 * i, self.player.pos[1]) - pygame.Vector2(170, 0)
-                Upgrade((self.all_sprites), position, upgrades[i], self.upgrade_card_sprites)
+                Upgrade((self.all_sprites, self.upgrade_card_sprites), position, upgrades[i], self.card_sprites)
             self.paused = True
      
     def set_enemy_flag(self):
@@ -329,7 +334,7 @@ class Survivor:
         if pygame.sprite.spritecollide(self.player, self.enemy_sprites, False):
             if self.player_can_be_hit:
                 self.player.current_health -= 10
-                print("Player health: ", self.player.current_health)
+                
                 self.player_can_be_hit = False
 
     
@@ -345,7 +350,7 @@ class Survivor:
                         hit_enemy.health -= 10
                         # print("Enemy health: ", hit_enemy.health)
                         if hit_enemy.health <= 0:
-                            print("Enemy killed")
+                          
                             self.player.gain_exp(hit_enemy.experience_on_death)
                             hit_enemy.kill()
 
@@ -399,8 +404,19 @@ class Survivor:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN and self.paused == True:
                     mouse_position = pygame.mouse.get_pos()
-                    
-            print(self.player.pos[0], self.player.pos[1])
+                    print("Mouse position: ", mouse_position)
+                    # check if mouse position is on upgrade card
+                    for card in self.upgrade_card_sprites:
+                        print("Card rect: ", card.rect.topleft)
+                        print("Mouse position: ", mouse_position)
+                        print(card.rect.collidepoint(event.pos))
+                        if card.is_clicked(mouse_position):
+                            print("Upgrade chosen")
+                            card.kill()
+                            self.paused = False
+                            self.player.is_level_up = False
+                            break
+                                        
             #player_camera.update(player, map_size_x, map_size_y)
             #self.health_bar.draw()
             if self.paused == False:

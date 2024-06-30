@@ -15,5 +15,6 @@ class Upgrade(pygame.sprite.Sprite):
     def is_upgrade_chosen(self):
         
         pass
-    
-    
+    def is_clicked(self, mouse_pos):
+        if self.rect.collidepoint(mouse_pos):
+            print("Upgrade clicked")
