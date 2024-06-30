@@ -103,27 +103,27 @@ class Survivor:
         
         self.franky_sprites = {
             "up":[
-                 #   pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","up", "1.png"])),
                     pygame.image.load("/".join(["enemy", "franky","up", "2.png"])),
                     pygame.image.load("/".join(["enemy", "franky","up", "3.png"])),
-                 #  pygame.image.load("/".join(["enemy", "franky","up", "4.png"]))
+                   pygame.image.load("/".join(["enemy", "franky","up", "4.png"]))
                     ],
             "down":[
-                    #pygame.image.load("/".join(["enemy", "franky","down", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","down", "1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","down", "2.png"])),
                      pygame.image.load("/".join(["enemy", "franky","down", "3.png"])),
-                   # pygame.image.load("/".join(["enemy", "franky","down" "4.png"]))
+                    pygame.image.load("/".join(["enemy", "franky","down" ,"4.png"]))
                      ],
             "left": [pygame.image.load("/".join(["enemy", "franky","left" ,"1.png"])),
                      pygame.image.load("/".join(["enemy", "franky","left", "2.png"])),
-                    # pygame.image.load("/".join(["enemy", "franky","left", "3.png"])),
-                    # pygame.image.load("/".join(["enemy", "franky","left", "4.png"]))
+                     pygame.image.load("/".join(["enemy", "franky","left", "3.png"])),
+                     pygame.image.load("/".join(["enemy", "franky","left", "4.png"]))
                     ],
             "right": [
-                    #pygame.image.load("/".join(["enemy", "franky","right", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "franky","right", "1.png"])),
                     pygame.image.load("/".join(["enemy", "franky","right", "2.png"])),
                     pygame.image.load("/".join(["enemy", "franky","right", "3.png"])),
-                    #pygame.image.load("/".join(["enemy", "franky","right", "4.png"]))
+                    pygame.image.load("/".join(["enemy", "franky","right", "4.png"]))
                     ]
             }
             
@@ -153,25 +153,25 @@ class Survivor:
         self.skeleton_sprites = {
             "up": [pygame.image.load("/".join(["enemy", "skeleton","up", "1.png"])),
                    pygame.image.load("/".join(["enemy", "skeleton","up", "2.png"])),
-                   #pygame.image.load("/".join(["enemy", "skeleton","up", "3.png"])),
-                   #pygame.image.load("/".join(["enemy", "skeleton","up", "4.png"]))
+                   pygame.image.load("/".join(["enemy", "skeleton","up", "3.png"])),
+                   pygame.image.load("/".join(["enemy", "skeleton","up", "4.png"]))
                    ],
             "down": [pygame.image.load("/".join(["enemy", "skeleton","down", "1.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","down", "2.png"])),
-                     #pygame.image.load("/".join(["enemy", "skeleton","down", "3.png"])),
-                    #pygame.image.load("/".join(["enemy", "skeleton","down", "4.png"]))
+                     pygame.image.load("/".join(["enemy", "skeleton","down", "3.png"])),
+                    pygame.image.load("/".join(["enemy", "skeleton","down", "4.png"]))
                     ],
             "left": [
-                    #pygame.image.load("/".join(["enemy", "skeleton","left", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "skeleton","left", "1.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","left", "2.png"])),
                      pygame.image.load("/".join(["enemy", "skeleton","left", "3.png"])),
-                     #pygame.image.load("/".join(["enemy", "skeleton","left", "4.png"]))
+                     pygame.image.load("/".join(["enemy", "skeleton","left", "4.png"]))
                      ],
             "right": [
-                    #pygame.image.load("/".join(["enemy", "skeleton","right", "1.png"])),
+                    pygame.image.load("/".join(["enemy", "skeleton","right", "1.png"])),
                     pygame.image.load("/".join(["enemy", "skeleton","right", "2.png"])),
                     pygame.image.load("/".join(["enemy", "skeleton","right", "3.png"])),
-                    #pygame.image.load("/".join(["enemy", "skeleton","right", "4.png"]))
+                    pygame.image.load("/".join(["enemy", "skeleton","right", "4.png"]))
                     ]
         }
         
@@ -233,7 +233,7 @@ class Survivor:
                 self.player = Player(self.player_sprites, self.all_sprites, self.collision_sprites, (obj.x, obj.y), 1000 ) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
-        # draw a healthbar in the top of the corner
+        
         
      
     def set_enemy_flag(self):
