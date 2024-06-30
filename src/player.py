@@ -10,23 +10,36 @@ class Player(pygame.sprite.Sprite):
         # self.image = pygame.Surface((50, 50))
         # self.image.fill((255, 0, 0))
         
-        self.starting_position = pos
+        self.pos = pos
         self.player_sprites = player_sprites
         self.image = self.player_sprites["down"][0]
         self.direction = pygame.math.Vector2()
         self.himmelsrichtung = "down"
+
         # self.image = pygame.image.load(image_path).convert_alpha()
-        self.rect = self.image.get_rect(center=self.starting_position)
+        self.rect = self.image.get_rect(center=self.pos)
         self.speed = 500
         self.collision_objects = collision_objects
         self.animation_index = 0
         self.animation_speed = 0.1
         self.hitbox = self.rect.inflate(-10, -10)
         self.shooting_mode = "single"
+        
+        # HEALTH
         self.max_health = 100
         self.current_health = self.max_health
-        self.healthbar_length = 100
-        self.healthbar_height = 10
+        
+        # EXP
+        self.exp_to_level = 0
+        self.total_exp = 0
+        self.level = 1
+        self.exp_progression_formula = self.total_exp * (1 + (self.level ** 0.5)) 
+        self.base_experience_threshold = 100 
+        self.exp_threshold_factor = 1.8
+        self.is_level_up = False
+        
+        self.status_bar_height = 5
+        self.status_bar_width = 100
         
     
         self.health_bar_image = pygame.Surface((50, 50))
@@ -46,6 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * self.speed * time
         self.check_hitbox_of_player_with_objects("y")
         self.rect.center = self.hitbox.center
+        self.pos = self.rect.center
     
     def animate_sprites(self):
         current_animation_sprite = (self.player_sprites[self.himmelsrichtung])
@@ -76,9 +90,31 @@ class Player(pygame.sprite.Sprite):
             if self.animation_index >= len(current_animation_sprite)-1:
                 self.animation_index = 0
     def draw_health_bar(self):
-        pygame.draw.rect(self.image, "red", (0, 0,self.healthbar_length ,self.healthbar_height))     
-        pygame.draw.rect(self.image, "green", (0, 0, self.healthbar_length * self.current_health / self.max_health, self.healthbar_height))
-    
+        pygame.draw.rect(self.image, "red", (0, 0,self.status_bar_width ,self.status_bar_height))     
+        pygame.draw.rect(self.image, "green", (0, 0,self.status_bar_width * self.current_health / self.max_health, self.status_bar_height))
+    def draw_experience_bar(self):
+        pygame.draw.rect(self.image, "grey", (0, 5,self.status_bar_width ,self.status_bar_height))     
+        pygame.draw.rect(self.image, "blue", (0, 5, (self.status_bar_width * self.exp_to_level / self.base_experience_threshold), self.status_bar_height))
+    def gain_exp(self, experience):
+        self.total_exp += experience
+        self.exp_to_level += self.total_exp
+        self.level_up()
+    def level_up(self):
+        
+        # damit diie Level nicht "gehardcoded" werden müssen muss Level grenze dynamisch sein also mit einem Faktor * Level z.B
+        # oder vorherige_exp_grenze * Level * Faktor (1.1)
+        # dazu muss es mehr Gegner geben über Zeit
+        # mit jedem Level up soll es Upgrades geben
+        
+        if self.exp_to_level >= self.base_experience_threshold:
+            self.base_experience_threshold = self.base_experience_threshold * self.exp_threshold_factor + self.total_exp
+            
+            self.exp_to_level = 0
+            self.level += 1
+            
+            self.is_level_up = True   
+            
+        
     def update(self, time):
         self.getInput()
         self.move(time)
@@ -86,6 +122,7 @@ class Player(pygame.sprite.Sprite):
         # self.check_hitbox_of_player_with_objects()
         self.rect.center += self.direction * self.speed * time
         self.draw_health_bar()
+        self.draw_experience_bar()
 
     def check_hitbox_of_player_with_objects(self, xy):
         # check whether player collides with objects

@@ -1,7 +1,6 @@
 import pygame
 from player import Player
 
-
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, pos, surf, groups):
         super().__init__(groups)

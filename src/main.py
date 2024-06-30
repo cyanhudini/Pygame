@@ -9,6 +9,7 @@ from collision_objects import CollisionObject
 from sprite import Sprite
 from bullet import Bullet
 from enemy import Enemy
+from upgrade import Upgrade
 from health_bar import HealthBar
 from pytmx.util_pygame import load_pygame
 from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
@@ -20,12 +21,7 @@ from variablen import SCREEN_HEIGHT, SCREEN_WIDTH
 class Survivor:
     def __init__(self):
 
-        pygame.init()
-
-        #self.screen_width = 1000
-        #self.screen_height = 1000
-        #self.map_size_x = 10000
-        #self.map_size_y = 10000
+        pygame.init()   
         self.screen = pygame.display.set_mode((SCREEN_HEIGHT,SCREEN_WIDTH))
         pygame.display.set_caption("Survivor")
         self.player_path = "/".join(["player", "down", "1.png"])
@@ -38,7 +34,7 @@ class Survivor:
         self.collision_sprites = pygame.sprite.Group()
         self.spawn_points = []
         self.player_sprites = {}
-        self.bat_sprites = {}
+        self.goblin_sprites = {}
         self.skeleton_sprites = {}
         self.zombie_sprites = {}
         self.franky_sprites = {}
@@ -50,15 +46,19 @@ class Survivor:
         self.all_sprites = SpriteGroups()
         self.last_shot = pygame.time.get_ticks()
         
+        
         # Variablen zum Ändern
         self.attack_speed_limit = 300 # je höher die Zahl desto niedirger die Frequenz
-        self.bullet_speed = 30
+        self.bullet_speed = 20
         self.t2 = 0
         self.t4 = 0
         
         self.load_sprites_to_animate()
         self.setup_map()
+        Upgrade((self.all_sprites), self.player.pos)
        
+       
+        self.paused = False
     
     def shoot_bullet(self):
         position = self.player.rect.center
@@ -83,6 +83,7 @@ class Survivor:
 
     def load_sprites_to_animate(self):
         # keine schöne Lösung, aber es funktioniert
+
         
         self.player_sprites = {
             
@@ -138,26 +139,26 @@ class Survivor:
                     ]
             }
             
-        self.bat_sprites = {
-            "up": [pygame.image.load("/".join(["enemy", "bat","up", "1.png"])),
-                   #pygame.image.load("/".join(["enemy", "bat","up" "2.png"])),
-                   #pygame.image.load("/".join(["enemy", "bat","up", "3.png"])),
-                   #pygame.image.load("/".join(["enemy", "bat","up", "4.png"]))
+        self.goblin_sprites = {
+            "up": [pygame.image.load("/".join(["enemy", "goblin","up", "1.png"])),
+                   pygame.image.load("/".join(["enemy", "goblin","up", "2.png"])),
+                   pygame.image.load("/".join(["enemy", "goblin","up", "3.png"])),
+                   pygame.image.load("/".join(["enemy", "goblin","up", "4.png"]))
                    ],
-            "down": [pygame.image.load("/".join(["enemy", "bat","down", "1.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat","down", "2.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat","down", "3.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat","down", "4.png"]))
+            "down": [pygame.image.load("/".join(["enemy", "goblin","down", "1.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin","down", "2.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin","down", "3.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin","down", "4.png"]))
                      ],
-            "left": [pygame.image.load("/".join(["enemy", "bat","left", "1.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat","left", "2.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat", "left","3.png"])),
-                     #pygame.image.load("/".join(["enemy", "bat", "left","4.png"]))
+            "left": [pygame.image.load("/".join(["enemy", "goblin","left", "1.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin","left", "2.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin", "left","3.png"])),
+                     pygame.image.load("/".join(["enemy", "goblin", "left","4.png"]))
                      ],
-            "right": [pygame.image.load("/".join(["enemy", "bat","right", "1.png"])),
-                      #pygame.image.load("/".join(["enemy", "bat", "right","2.png"])),
-                      #pygame.image.load("/".join(["enemy", "bat","right", "3.png"])),
-                      #pygame.image.load("/".join(["enemy", "bat","right", "4.png"]))
+            "right": [pygame.image.load("/".join(["enemy", "goblin","right", "1.png"])),
+                      pygame.image.load("/".join(["enemy", "goblin", "right","2.png"])),
+                      pygame.image.load("/".join(["enemy", "goblin","right", "3.png"])),
+                      pygame.image.load("/".join(["enemy", "goblin","right", "4.png"]))
                       ]
         }
         
@@ -245,7 +246,15 @@ class Survivor:
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
         
-        
+     
+    def trigger_upgrade_event(self):
+        # if player level up, player can choose between three different upgrades
+        print("main is level up: ", self.player.is_level_up)
+        if self.player.is_level_up == True:
+            print("Player leveled up")
+            
+            Upgrade((self.all_sprites), self.player.pos)
+            self.paused = True
      
     def set_enemy_flag(self):
         spawn_indikator = random.randint(0,1)
@@ -275,20 +284,20 @@ class Survivor:
         Franky: 0.9 - 1
         '''
         
-        spawn_chance_world = 0.01
+        spawn_chance_world = 0.5
         limit = random.random()
         if limit < spawn_chance_world:
             random_enemy_type = self.set_enemy_flag()
-            #random_enemy_type = 2
+            random_enemy_type = 1
             match random_enemy_type:
                 case 1:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, self.bat_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, 10, self.goblin_sprites)
                 case 2:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, self.zombie_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, 40, self.zombie_sprites)
                 case 3:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, self.skeleton_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, 80, self.skeleton_sprites)
                 case 4:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 350, self.franky_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 350,140, self.franky_sprites)
                     
     def can_player_take_damage(self):
         # wenn Spieler Schaden nimmt, kann dieser für eine bestimmte Zeit nicht
@@ -296,9 +305,9 @@ class Survivor:
         if self.player_can_be_hit == False:
             self.t3 = pygame.time.get_ticks()
             t_delta = self.t3 - self.t4
-            print("t_delta: ", t_delta)
+            #print("t_delta: ", t_delta)
             if t_delta >= 700:
-                print("Player can be hit again")
+                #print("Player can be hit again")
                 self.player_can_be_hit = True
                 self.t4 = self.t3
         
@@ -323,9 +332,10 @@ class Survivor:
                     #gleiche Logik wie bei Bullet
                     for hit_enemy in hit_sprite:
                         hit_enemy.health -= 10
-                        print("Enemy health: ", hit_enemy.health)
+                        # print("Enemy health: ", hit_enemy.health)
                         if hit_enemy.health <= 0:
                             print("Enemy killed")
+                            self.player.gain_exp(hit_enemy.experience_on_death)
                             hit_enemy.kill()
 
                     bullet.kill()
@@ -346,7 +356,7 @@ class Survivor:
         for enemy in self.enemy_sprites:
             distance = math.sqrt((self.player.hitbox.centerx - enemy.hitbox.centerx) ** 2 + (self.player.hitbox.centery - enemy.hitbox.centery) ** 2)
             if distance <= threshold_distance:
-                print("enemy in range")
+                # print("enemy in range")
                 self.bullet_direction = pygame.Vector2(enemy.hitbox.center) - pygame.Vector2(self.player.hitbox.center)
                 break
                 
@@ -370,22 +380,25 @@ class Survivor:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
+            print(self.player.pos[0], self.player.pos[1])
             #player_camera.update(player, map_size_x, map_size_y)
             #self.health_bar.draw()
-            self.time = self.clock.tick() / 1000
-            
-            # player.draw(screen, player_camera)
-            self.check_closest_enemy()
-            self.spawn_enemies()
-            self.check_player_collision_with_enemy()
-            self.check_bullet_collision_with_enemy()
-            self.attack_speed()
-            self.all_sprites.update(self.time)
-            #self.screen.fill('black')
-            self.all_sprites.draw(self.player.rect.center) 
-            
-            pygame.display.update()
+            if self.paused == False:
+                self.time = self.clock.tick() / 1000
+                self.trigger_upgrade_event()
+                # player.draw(screen, player_camera)
+                self.check_closest_enemy()
+                self.spawn_enemies()
+                self.check_player_collision_with_enemy()
+                self.check_bullet_collision_with_enemy()
+                
+                self.attack_speed()
+
+                self.all_sprites.update(self.time)
+                #self.screen.fill('black')
+                self.all_sprites.draw(self.player.rect.center) 
+                
+                pygame.display.update()
         
 
         pygame.quit()

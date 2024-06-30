@@ -4,15 +4,16 @@ import math
 class Enemy(pygame.sprite.Sprite):
     # Enemy Class ist ähnlich wie die Player Klasse aufgebaut
     
-    def __init__(self,pos, groups, player, collision_objects, health, sprites):
+    def __init__(self,pos, groups, player, collision_objects, health, experience_on_death, sprites):
         super().__init__(groups)
         self.groups = groups        
         
         # select the first sprite from the folder "down" and the first sprite
         #
+        self.experience_on_death = experience_on_death
         self.sprites = sprites
         self.health= health
-        self.image =self.sprites["down"][0] #anfänglicher Sprite
+        self.image = self.sprites["down"][0] #anfänglicher Sprite
         self.rect = self.image.get_rect(center=pos)
         self.player_target = player
         self.speed= 100
