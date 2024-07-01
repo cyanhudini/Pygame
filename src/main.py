@@ -90,6 +90,8 @@ class Survivor:
 
     def load_sprites_to_animate(self):
         # keine schöne Lösung, aber es funktioniert
+        
+        # hier könnte man noch mehr sprite cards einfügen, nach dem Muster wie z.B. upgrade_defense.xfc in gimp lädt
         self.card_sprites = {
             "dmg": ("/".join(["player", "upgrade", "upgrade_dmg.png"])),
             "defense": ("/".join(["player", "upgrade", "upgrade_defense.png"])),
@@ -303,7 +305,7 @@ class Survivor:
         '''
         t = pygame.time.get_ticks()
         #print("ingame ticks: ", t)
-        spawn_chance_world = (0.25/(0.15*((t/1000)*60) + 1))
+        spawn_chance_world = (0.30/(0.15*((t/1000)*60) + 1))
         # https://riskofrain2.fandom.com/wiki/Tougher_Times
         # je länger das Spiel dauert, desto höher die Spawnchance
         # erhöhe den Zähler um die Spawn Chance zu erhöhen
@@ -382,7 +384,7 @@ class Survivor:
        
     
     def check_closest_enemy(self):
-        threshold_distance = 290
+        threshold_distance = 330
         for enemy in self.enemy_sprites:
             distance = math.sqrt((self.player.hitbox.centerx - enemy.hitbox.centerx) ** 2 + (self.player.hitbox.centery - enemy.hitbox.centery) ** 2)
             if distance <= threshold_distance:
@@ -392,11 +394,15 @@ class Survivor:
                 
     def determine_upgrade_type(self):
         possible_upgrades = []
-        for upgrade in self.upgrade_types:
-            if upgrade not in possible_upgrades:
-                possible_upgrades.append(upgrade)
+        # shuffle ändert die Reihenfolge der Liste, gib dann die ersten drei aus       
+        random.shuffle(self.upgrade_types)
+        # code geändert damit auch tatsächlich eine beliebig große anzahl an upgrades möglich ist
+        possible_upgrades = self.upgrade_types[:3]
         return possible_upgrades
-    
+        
+        
+        
+        
     def remove_upgrade_cards(self):
         for upgrade in self.upgrade_card_sprites:
                 upgrade.kill()
