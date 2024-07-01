@@ -363,7 +363,7 @@ class Survivor:
                     #print("Bullet collided with enemy")
                     #gleiche Logik wie bei Bullet
                     for hit_enemy in hit_sprite:
-                        hit_enemy.health -= 10 * self.player.damage_multiplier
+                        hit_enemy.health -= 15 * self.player.damage_multiplier
                         # print("Enemy health: ", hit_enemy.health)
                         if hit_enemy.health <= 0:
                           
