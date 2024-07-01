@@ -80,7 +80,7 @@ class Survivor:
         Bullet(self.bullet_sprite_image, position, direction, (self.all_sprites, self.bullet_sprites))
     
     
-    def shoot_bullet(self):
+    def shoot_bullets(self):
         position = self.player.rect.center
         
         
@@ -260,9 +260,7 @@ class Survivor:
                 self.player = Player(self.player_sprites, self.all_sprites, self.collision_sprites, (obj.x, obj.y), 1000) 
             else: # da auf Objektebene 1 nur spawn punkte und spieler start punkt sind, füge die restlichen koordinaten als spawn punkte für Gegner hinzu
                 self.spawn_points.append((obj.x, obj.y))
-        
-   
-    
+          
     def trigger_upgrade_event(self):
         # if player level up, player can choose between three different upgrades
       

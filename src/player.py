@@ -9,8 +9,10 @@ class Player(pygame.sprite.Sprite):
         self.pos = pos
         self.player_sprites = player_sprites
         self.image = self.player_sprites["down"][0]
-        self.direction = pygame.math.Vector2()
+        self.direction = pygame.math.Vector2()        
         self.himmelsrichtung = "down"
+
+        self.closest_enemy_distance = pygame.math.Vector2(0,0)
 
         # self.image = pygame.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect(center=self.pos)
