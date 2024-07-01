@@ -319,7 +319,7 @@ class Survivor:
                 case 1:
                     Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 50, 10, 2, self.goblin_sprites)
                 case 2:
-                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 150, 40, 7, self.zombie_sprites)
+                    Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 110, 30, 7, self.zombie_sprites)
                 case 3:
                     Enemy(random.choice(self.spawn_points), (self.all_sprites, self.enemy_sprites), self.player, self.collision_sprites, 200, 80, 15 ,self.skeleton_sprites)
                 case 4:
@@ -394,18 +394,16 @@ class Survivor:
             if distance <= threshold_distance:
                 # print("enemy in range")
                 self.bullet_direction = pygame.Vector2(enemy.hitbox.center) - pygame.Vector2(self.player.hitbox.center)
-                break
+            
                 
     def determine_upgrade_type(self):
         possible_upgrades = []
         # shuffle ändert die Reihenfolge der Liste, gib dann die ersten drei aus       
         random.shuffle(self.upgrade_types)
         # code geändert damit auch tatsächlich eine beliebig große anzahl an upgrades möglich ist
+        # da es nur drei upgrades gibt, sinds immer die gleichen drei
         possible_upgrades = self.upgrade_types[:3]
         return possible_upgrades
-        
-        
-        
         
     def remove_upgrade_cards(self):
         for upgrade in self.upgrade_card_sprites:
