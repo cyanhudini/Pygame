@@ -349,6 +349,10 @@ class Survivor:
                     #print("Total damage: ", total_damage)
                     #print("Player health: ", self.player.current_health)
                     self.player.current_health -= total_damage
+                    if self.player.current_health <= 0:
+                        print("Game Over")
+                        pygame.quit()
+                        sys.exit()
                     # https://riskofrain2.fandom.com/wiki/Alien_Head
                     #The skill cooldown is determined by the formula cooldown ⋅ 0.75 ^ amount
                     self.player_can_be_hit = False
